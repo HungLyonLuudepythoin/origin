@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Rowdies:wght@300;400;700&family=Merriweather:wght@300;400;700;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+body {
+    background-color: #D9BD8B;
+}
+/* Introduction */
+.introduction {
+    display: flex;
+    align-items: center;
+    gap: 200px;
+    height: 400px;
+    justify-content: center;
+}
+.introduction img {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: none;
+    animation-name: right-to;
+    animation-duration: 1.5s;
+}
+.donate-introduction {
+    padding: 50px 20px;
+    max-width: 600px;
+}
+  
+
+.donate-title {
+    font-family: 'Rowdies', cursive;
+    text-align: center;
+    font-size: 72px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    width: 600px;
+    height: 160px;
+}
+.donate-subtitle {
+    font-size: 18px;
+    font-family: 'Manrope', sans-serif;
+    color: #3A1700;
+    font-weight: 100;
+    width: 600px;
+    margin: 30px;
+    flex-direction: column;
+    justify-content: center;
+}
+.donate-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}  
+
+.donate-button button {
+    font-family: 'Rowdies', cursive;
+    background-color: #7E8AB8;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    font-weight: 200;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Body */
+
+.donate-stats {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    margin: 40px 0;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.stat {
+    animation-name: top-to;
+    animation-duration: 1.8s;
+}
+.stat h2 {
+    font-size: 30px;
+    color: #009EFF;
+    font-family: 'Rowdies', cursive;
+    text-align: center;
+    margin: 10px;
+    margin-top: 0px;
+    border-bottom: 3px solid #009EFF;
+}
+
+.stat p {
+    font-family: 'Rowdies', cursive;
+    margin: 5px 0 0;
+}
+
+/* About */
+.donate-about {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.donate-about h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+}
+.donate-about p {
+    font-family: 'Merriweather', serif;
+    font-weight: bold;
+    font-size: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Temple */  
+.donate-temples {
+    text-align: center;
+    padding: 50px 20px;
+}
+  
+.donate-temples h2 {
+    font-family: 'Rowdies', cursive;
+    font-size: 40px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #3A1700;
+    font-family: 'Rowdies', cursive;
+}
+  
+.temple-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+  
+.temple-card {
+    width: 280px;
+    height: 320px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.temple-card button {
+    position: absolute;
+    bottom: 15px;
+    transform: translateX(-50%);
+    background-color: #fa8072;
+    color: white;
+    font-family: 'Rowdies', cursive;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+
+/* Donate Helper*/
+.donate-help {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.donate-help h2 {
+    color: white;
+    font-size: 40px;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+    font-family: 'Playfair Display', serif;
+}
+
+.qr-code img {
+    background-color: white;
+    max-width: 300px;
+    border-radius: 16px;
+}
+
+
+
+/* Animation */
+@keyframes right-to {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes top-to {
+    from { opacity: 0; transform: translateY(-80px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hidden {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 1.8s ease;
+  }
+  .show {
+    opacity: 1;
+    transform: translateY(0);
+  }
