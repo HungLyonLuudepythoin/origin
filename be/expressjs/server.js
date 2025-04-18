@@ -66,3 +66,23 @@ app.get("/preview", async (req, res) => { // http://localhost:3000/preview?key=i
     }
   });
   
+  app.get("/video", async (req, res) => {
+    const fileKey = req.query.key;
+  
+    try {
+      const command = new GetObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey,
+      });
+  
+      const data = await minioClient.send(command);
+      res.setHeader("Content-Type", data.ContentType || "video/mp4");
+  
+      // Pipe the readable stream directly to the response (video)
+      data.Body.pipe(res);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to preview video" });
+    }
+  });
+  
