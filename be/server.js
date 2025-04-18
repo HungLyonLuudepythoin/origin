@@ -1,79 +1,88 @@
-const axios = require('axios');
-const express = require('express')
-const app = express()
+// app.js
+const express = require("express");
+const { ListObjectsV2Command, GetObjectCommand } = require("@aws-sdk/client-s3");
+const minioClient = require("./minioClient");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
-app.post("/payment", async (req, res) => {
-  //https://developers.momo.vn/#/docs/en/aiov2/?id=payment-method
-  //parameters
-  var accessKey = 'F8BBA842ECF85';
-  var secretKey = 'K951B6PE1waDMi640xX08PD3vg6EkVlz';
-  var orderInfo = 'pay with MoMo';
-  var partnerCode = 'MOMO';
-  var redirectUrl = 'https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b';
-  var ipnUrl = 'https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b';
-  var requestType = "payWithMethod";
-  var amount = '50000';
-  var orderId = partnerCode + new Date().getTime();
-  var requestId = orderId;
-  var extraData ='';
-  var orderGroupId ='';
-  var autoCapture =true;
-  var lang = 'vi';
+const app = express();
+const PORT = 3000;
 
-  //before sign HMAC SHA256 with format
-  //accessKey=$accessKey&amount=$amount&extraData=$extraData&ipnUrl=$ipnUrl&orderId=$orderId&orderInfo=$orderInfo&partnerCode=$partnerCode&redirectUrl=$redirectUrl&requestId=$requestId&requestType=$requestType
-  var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType;
-  //puts raw signature
-  console.log("--------------------RAW SIGNATURE----------------")
-  console.log(rawSignature)
-  //signature
-  const crypto = require('crypto');
-  var signature = crypto.createHmac('sha256', secretKey)
-      .update(rawSignature)
-      .digest('hex');
-  console.log("--------------------SIGNATURE----------------")
-  console.log(signature)
+const BUCKET_NAME = "webdev2025";
+const PREFIX = "images/"; // folder you created on the UI
 
-  //json object send to MoMo endpoint
-  const requestBody = JSON.stringify({
-      partnerCode : partnerCode,
-      partnerName : "Test",
-      storeId : "MomoTestStore",
-      requestId : requestId,
-      amount : amount,
-      orderId : orderId,
-      orderInfo : orderInfo,
-      redirectUrl : redirectUrl,
-      ipnUrl : ipnUrl,
-      lang : lang,
-      requestType: requestType,
-      autoCapture: autoCapture,
-      extraData : extraData,
-      orderGroupId: orderGroupId,
-      signature : signature
+app.get("/files", async (req, res) => {
+  try {
+    const command = new ListObjectsV2Command({
+      Bucket: BUCKET_NAME,
+      Prefix: PREFIX,
+    });
+
+    const data = await minioClient.send(command);
+    const files = data.Contents?.map((item) => item.Key) || [];
+    res.json({ files });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to list files" });
+  }
+});
+
+app.get("/file", async (req, res) => {
+  const fileKey = req.query.key; // pass full object key in query, e.g. your-folder/myfile.txt
+  try {
+    const command = new GetObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: fileKey,
+    });
+
+    const url = await getSignedUrl(minioClient, command, { expiresIn: 3600 });
+    res.json({ downloadUrl: url });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to get file" });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+app.get("/preview", async (req, res) => { // http://localhost:3000/preview?key=images/test.txt
+    const fileKey = req.query.key;
+  
+    try {
+      const command = new GetObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey,
+      });
+  
+      const data = await minioClient.send(command);
+      res.setHeader("Content-Type", data.ContentType || "application/octet-stream");
+  
+      // Pipe the readable stream directly to the response
+      data.Body.pipe(res);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to preview file" });
+    }
   });
   
-  // option for axios
-  const options = {
-    method: "POST",
-    url: 'https://test-payment.momo.vn/v2/gateway/api/create',
-    headers: {
-      'Content-type': 'application/json',
-      'Content-length': Buffer.byteLength(requestBody)
-    },
-    data: requestBody 
-  }
-
-  let result;
-  try {
-    result = await axios(options)
-    return res.status(200).json(result.data)
-  } catch (error) {
-    return res.status(500).json({
-      statusCode: 500,
-      message: `Server Error, ${error}` 
-    })
-  }
-})
-
-app.listen(3000)
+  app.get("/video", async (req, res) => {
+    const fileKey = req.query.key;
+  
+    try {
+      const command = new GetObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey,
+      });
+  
+      const data = await minioClient.send(command);
+      res.setHeader("Content-Type", data.ContentType || "video/mp4");
+  
+      // Pipe the readable stream directly to the response (video)
+      data.Body.pipe(res);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to preview video" });
+    }
+  });
+  
