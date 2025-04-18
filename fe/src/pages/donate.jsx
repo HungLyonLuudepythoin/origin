@@ -1,7 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../styles/donate.css";
 
 function Donate() {
+  const targetRef = useRef(null);
+  const scrollClick = () => {
+    targetRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -17,6 +21,7 @@ function Donate() {
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
   }, []);
 
+
   return (
     <>
       <div className="introduction">
@@ -25,7 +30,7 @@ function Donate() {
           <p className="donate-subtitle">
             Chúng ta không thể quay về quá khứ, nhưng có thể góp phần xây dựng nơi bắt đầu của nó – để những giá trị thiêng liêng không bao giờ bị lãng quên
           </p>
-          <div className="donate-button"><button>Quyên góp</button></div>
+          <div className="donate-button"><button onClick={scrollClick}>Quyên góp</button></div>
         </div>
         <img src="./images/parade.jpg" alt="Parade" />
       </div>
@@ -54,7 +59,7 @@ function Donate() {
         </div>
       </section>
 
-      <section className="donate-help">
+      <section ref={targetRef} className="donate-help">
         <h2>Hãy cùng chung tay giúp đỡ</h2>
         <div className="qr-code">
           <img src="./images/qrcode.png" className="hidden" alt="QR Code" />
