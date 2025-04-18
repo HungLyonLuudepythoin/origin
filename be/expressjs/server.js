@@ -46,9 +46,8 @@ app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-app.get("/preview", async (req, res) => {
-    const fileKey = req.query.key; // e.g. images/photo.jpg
-    if (!fileKey) return res.status(400).send("Missing file key");
+app.get("/preview", async (req, res) => { // http://localhost:3000/preview?key=images/test.txt
+    const fileKey = req.query.key;
   
     try {
       const command = new GetObjectCommand({
@@ -57,12 +56,9 @@ app.get("/preview", async (req, res) => {
       });
   
       const data = await minioClient.send(command);
+      res.setHeader("Content-Type", data.ContentType || "application/octet-stream");
   
-      // Set content type from the headers MinIO returns (if available)
-      const contentType = data.ContentType || "application/octet-stream";
-      res.setHeader("Content-Type", contentType);
-  
-      // Pipe the file stream directly to the response
+      // Pipe the readable stream directly to the response
       data.Body.pipe(res);
     } catch (err) {
       console.error(err);
