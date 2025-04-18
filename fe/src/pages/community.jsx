@@ -35,17 +35,24 @@ function Community() {
         <h2>Làng Văn Hóa</h2>
       </div>
 
-      {/* Main Image */}
-      <div className="community-video">
-        <iframe
-          width="900"
-          height="500"
-          src="https://www.youtube.com/embed/Qw3XCMRxMr8"
-          title="Giỗ Tổ Hùng Vương"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
+      {/* Tour 3d */}
+        <div className="community-3d" style={{ marginBottom: '120px' }}>
+          <h3>Hành Trình Về Cội Nguồn</h3>
+          <h2>Khám Phá Bảo Tàng Hùng Vương</h2>
+          <div style={{ width: '1200px', height: '700px', margin: '0 auto', marginTop: '50px' }}>
+            <iframe
+              src="https://vnmh.egal.vn/tours/dongson/"
+              title="Dong Son Tour"
+              width="1200"
+              height="700"
+              style={{
+                border: 'none',
+              }}
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+
 
       {/* Văn hoá là gì section */}
       <div className="community-section">
@@ -62,7 +69,6 @@ function Community() {
           {["parade1.jpg", "parade2.jpg", "parade3.jpg"].map(VanHoa)}
         </div>
       </div>
-
       {/* Nét đẹp ngày Giỗ Tổ */}
       <div className="community-highlight">
         <h3>Nét đẹp ngày Giỗ Tổ</h3>
@@ -97,6 +103,18 @@ function Community() {
           <SwiperSlide><img src="./images/temple1.jpg" /></SwiperSlide>
           <SwiperSlide><img src="./images/temple2.jpg" /></SwiperSlide>
         </Swiper>
+      </div>
+      
+      {/* Video */}
+      <div className="community-video">
+        <iframe
+          width="900"
+          height="500"
+          src="https://www.youtube.com/embed/Qw3XCMRxMr8"
+          title="Giỗ Tổ Hùng Vương"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
       </div>
 
       {/* Quote */}

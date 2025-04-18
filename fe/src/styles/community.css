@@ -4,6 +4,7 @@
 .community-title {
     text-align: center;
     padding: 20px 0;
+    margin-bottom: -80px;
 }
 
 .community-title h1 {
@@ -21,15 +22,29 @@
 }
 
 
-/* Main Image */
-.community-video {
-    margin-top: -100px;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 100px;
+/* Tour 3D */
+.community-3d {
+    text-align: center;
 }
-
-
+  
+.community-3d h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: #37848C;
+    font-weight: 600;
+    margin: 0 auto;
+    font-style: italic;
+}
+.community-3d h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 25px;
+    color: #fff;
+    font-weight: 600;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: -20px;
+}
+  
 /* Van Hoa La Gi */
 .community-section {
     width: 1100px;
@@ -139,6 +154,13 @@
 .swiper-slide:not(.swiper-slide-active) img {
     opacity: 0.75;
     transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+/* Video */
+.community-video {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }
 /* Quote */
 
