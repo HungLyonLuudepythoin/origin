@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 
 # Expose the port your app runs on (optional unless you want to access it externally)
-EXPOSE 3000
+EXPOSE 3001
 
 # Start the app
-CMD ["node", "server.js"]
+CMD ["npm", "run", "dev"]

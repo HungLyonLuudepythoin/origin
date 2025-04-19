@@ -17,9 +17,9 @@ const userRoutes = require("./routes/db_api");
 const minioRoutes = require("./routes/minio_api");
 const paymentRoutes = require("./routes/donate")
 // Prefix routes
-app.use("/db", userRoutes);    
-app.use("/minio", minioRoutes);   
-app.use("/api", paymentRoutes);
+app.use("/api/db", userRoutes);    
+app.use("/api/minio", minioRoutes);   
+app.use("/api/donate", paymentRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);

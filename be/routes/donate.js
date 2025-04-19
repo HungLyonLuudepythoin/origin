@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const payOS = require("../modules/payos");
-
+const db = require('../modules/db');
 
 const DOMAIN = "http://localhost:3000"
 router.post("/create", async function (req, res) {
@@ -80,15 +80,19 @@ router.put("/:orderId", async function (req, res) {
     });
   }
 });
-//  https://cc22-2405-4802-80d5-7f90-c965-4640-6fa4-d579.ngrok-free.app/api/confirm-webhook
+//     https://efa9-2405-4802-80d5-7f90-240f-1454-b706-5fba.ngrok-free.app/api/donate/confirm-webhook
 router.post("/confirm-webhook", async (req, res) => {
-  const { orderCode, status, amount, description, transactionDateTime } = req.body.data;
+  const { orderCode, amount, description, transactionDateTime } = req.body.data ;
+
   try {
     // await payOS.confirmWebhook(webhookUrl);
     console.log("web-hook",req.body)
-    const userId = Number(String(orderCode).slice(0, -6));
+    const userId = await Number(String(orderCode).slice(0, -6));
     console.log(userId, orderCode, amount, transactionDateTime, description)
-    res.json()
+    await db.query(
+      'INSERT INTO Donaters (magiaodich, sotien, ngaydonate, id_user, mota) VALUES (?, ?, ?, ?, ?)',
+      [orderCode, amount, transactionDateTime, userId, description]
+    );
   } catch (error) {
     console.error(error);
     return res.json({
