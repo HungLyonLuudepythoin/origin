@@ -1,0 +1,130 @@
+/* Footer styles */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+.footer {
+    background-color: #3c3331;
+    color: #ffffff;
+    padding: 20px 0;
+    margin-top: 40px;
+    width: 100%;
+    z-index: 1000;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.footer-column {
+    flex: 1;
+    padding: 0 15px;
+}
+
+/* Logo and company info */
+.footer-logo {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.footer-info {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Middle column links */
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 15px;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #cccccc;
+}
+
+/* Social media section */
+.social-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+.linkedin {
+    background-color: #0077b5;
+}
+
+.google {
+    background-color: #db4437;
+}
+
+.facebook {
+    background-color: #1877f2;
+}
+
+.copyright {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+    
+    .footer-column {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .footer-links {
+        text-align: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+}

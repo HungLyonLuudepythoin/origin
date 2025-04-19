@@ -1,11 +1,9 @@
 import React from "react";
-import "../styles/community.css";
-import { Navigation, Pagination, Autoplay, EffectCoverflow} from 'swiper/modules';
+import "../styles/activity.css";
+import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-
-
 
 function VanHoa(img, i) {
   const quote = [
@@ -17,7 +15,7 @@ function VanHoa(img, i) {
   return (
     <div
       key={i}
-      className="community-card"
+      className="activity-card"
       style={{ backgroundImage: `url(./images/${img})` }}
     >
       <p>{quote[i]}</p>
@@ -26,36 +24,35 @@ function VanHoa(img, i) {
   );
 }
 
-function Community() {
+function Activity() {
   return (
-    <div className="community-container">
+    <div className="activity-container">
       {/* Title */}
-      <div className="community-title">
+      <div className="activity-title">
         <h1>Chào mừng đến với</h1>
         <h2>Làng Văn Hóa</h2>
       </div>
 
       {/* Tour 3d */}
-        <div className="community-3d" style={{ marginBottom: '120px' }}>
-          <h3>Hành Trình Về Cội Nguồn</h3>
-          <h2>Khám Phá Bảo Tàng Hùng Vương</h2>
-          <div style={{ width: '1200px', height: '700px', margin: '0 auto', marginTop: '50px' }}>
-            <iframe
-              src="https://vnmh.egal.vn/tours/dongson/"
-              title="Dong Son Tour"
-              width="1200"
-              height="700"
-              style={{
-                border: 'none',
-              }}
-              allowFullScreen
-            ></iframe>
-          </div>
+      <div className="activity-3d" style={{ marginBottom: '120px' }}>
+        <h3>Hành Trình Về Cội Nguồn</h3>
+        <h2>Khám Phá Bảo Tàng Hùng Vương</h2>
+        <div style={{ width: '1200px', height: '700px', margin: '0 auto', marginTop: '50px' }}>
+          <iframe
+            src="https://vnmh.egal.vn/tours/dongson/"
+            title="Dong Son Tour"
+            width="1200"
+            height="700"
+            style={{
+              border: 'none',
+            }}
+            allowFullScreen
+          ></iframe>
         </div>
-
+      </div>
 
       {/* Văn hoá là gì section */}
-      <div className="community-section">
+      <div className="activity-section">
         <div className="vertical-title">
           {"VĂN HOÁ LÀ GÌ".split(" ").map((word, wordIndex) => (
             <div className="vertical-word" key={wordIndex}>
@@ -65,12 +62,13 @@ function Community() {
             </div>
           ))}
         </div>
-        <div className="community-cards">
+        <div className="activity-cards">
           {["parade1.jpg", "parade2.jpg", "parade3.jpg"].map(VanHoa)}
         </div>
       </div>
+
       {/* Nét đẹp ngày Giỗ Tổ */}
-      <div className="community-highlight">
+      <div className="activity-highlight">
         <h3>Nét đẹp ngày Giỗ Tổ</h3>
         <Swiper
           modules={[Pagination, EffectCoverflow]}
@@ -91,7 +89,7 @@ function Community() {
           onClick={(swiper) => {
             swiper.slideTo(swiper.clickedIndex);
           }}
-          className="community-swiper"
+          className="activity-swiper"
         >
           <SwiperSlide><img src="./images/festival1.jpg" /></SwiperSlide>
           <SwiperSlide><img src="./images/festival2.jpg" /></SwiperSlide>
@@ -104,9 +102,9 @@ function Community() {
           <SwiperSlide><img src="./images/temple2.jpg" /></SwiperSlide>
         </Swiper>
       </div>
-      
+
       {/* Video */}
-      <div className="community-video">
+      <div className="activity-video">
         <iframe
           width="900"
           height="500"
@@ -118,7 +116,7 @@ function Community() {
       </div>
 
       {/* Quote */}
-      <div className="community-quote">
+      <div className="activity-quote">
         <p>
           Biển Việt ngàn xưa đã có chủ<br />
           Bờ Nam vạn đại hữu nhân ông<br />
@@ -130,4 +128,4 @@ function Community() {
   );
 }
 
-export default Community;
+export default Activity;

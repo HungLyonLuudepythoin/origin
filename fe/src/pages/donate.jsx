@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../styles/donate.css";
 
 function Donate() {
   const targetRef = useRef(null);
+  const navigate = useNavigate();
   const scrollClick = () => {
     targetRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
@@ -21,7 +23,9 @@ function Donate() {
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
   }, []);
 
-
+  const navigationClick = () => {
+    navigate('/paymentInfo');
+  };
   return (
     <>
       <div className="introduction">
@@ -64,6 +68,7 @@ function Donate() {
         <div className="qr-code">
           <img src="./images/qrcode.png" className="hidden" alt="QR Code" />
         </div>
+        <div className="donate-button" style={{marginTop: '30px'}}><button onClick={navigationClick} style={{backgroundColor: '#fa8072', width: '160px'}}>Quyên góp</button></div>
       </section>
     </>
   );

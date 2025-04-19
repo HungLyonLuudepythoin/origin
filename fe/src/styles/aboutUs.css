@@ -1,0 +1,173 @@
+.frame {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Header Styles */
+.about-title {
+    font-family: 'Playfair Display', serif;
+    color: #2a8a8a;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.intro {
+    max-width: 100vw;
+    margin-bottom: 50px;
+    text-align: justify;
+}
+
+.intro p {
+    padding: 0 40px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Section purpose */
+.purpose {
+    display: flex;
+    width: 100%;
+    padding: 40px 0;
+  }
+  
+  /* Chữ bên trái */
+  .purpose .content {
+    width: 50%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    color: #2f2f2f;
+  }
+  
+  .purpose .section-title {
+    font-size: 36px;
+    letter-spacing: 6px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+  }
+  
+  .purpose .content-text p {
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  /* Ảnh bên phải */
+  .purpose .purpose-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+  }
+  
+  .purpose .purpose-image img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%; /* bo tròn ảnh */
+
+  }
+  
+/* Values Section */
+.values-title {
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.value-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.value-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.purpose-image {
+    height: 250px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+}
+
+.ton-vinh {
+    background-image: url('https://source.unsplash.com/random/300x400/?sunrise,silhouette');
+}
+
+.giao-duc {
+    background-image: url('https://source.unsplash.com/random/300x400/?teaching,education');
+}
+
+.khoi-day {
+    background-image: url('https://source.unsplash.com/random/300x400/?ceremony,tradition');
+}
+
+.sang-tao {
+    background-image: url('https://source.unsplash.com/random/300x400/?creativity,innovation');
+}
+
+.card-title {
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .mission-content {
+        flex-direction: column;
+    }
+    
+    .mission-image {
+        order: -1;
+        margin-bottom: 30px;
+    }
+    
+    .value-cards {
+        justify-content: center;
+    }
+    
+    .value-card {
+        min-width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .value-card {
+        min-width: 100%;
+    }
+}
+

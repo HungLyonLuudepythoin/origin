@@ -1,0 +1,27 @@
+.topbar {
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+    
+  .nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+    
+  .nav-list li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+    
+  .nav-list li a:hover {
+    color: black;
+  }
+  

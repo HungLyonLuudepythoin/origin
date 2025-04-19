@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Merriweather&family=Agbalumo&family=Passions+Conflict&display=swap');
 
 /* Title */
-.community-title {
+.activity-title {
     text-align: center;
     padding: 20px 0;
     margin-bottom: -80px;
 }
 
-.community-title h1 {
+.activity-title h1 {
     font-family: 'Playfair Display', serif;
     font-size: 48px;
     letter-spacing: 5px;
 }
 
-.community-title h2 {
+.activity-title h2 {
     font-family: 'Passions Conflict', cursive;
     font-size: 150px;
     font-weight: 100;
@@ -23,11 +23,11 @@
 
 
 /* Tour 3D */
-.community-3d {
+.activity-3d {
     text-align: center;
 }
   
-.community-3d h3 {
+.activity-3d h3 {
     font-family: 'Playfair Display', serif;
     font-size: 40px;
     color: #37848C;
@@ -35,7 +35,7 @@
     margin: 0 auto;
     font-style: italic;
 }
-.community-3d h2 {
+.activity-3d h2 {
     font-family: 'Playfair Display', serif;
     font-size: 25px;
     color: #fff;
@@ -46,7 +46,7 @@
 }
   
 /* Van Hoa La Gi */
-.community-section {
+.activity-section {
     width: 1100px;
     margin: 30px;
     display: flex;
@@ -73,9 +73,7 @@
     gap: 5px;
 }
 
-
-
-.community-cards {
+.activity-cards {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -83,7 +81,7 @@
     right: 0px;
 }
 
-.community-card {
+.activity-card {
     background: #ffffff;
     border-radius: 35px;
     padding: 10px;
@@ -94,14 +92,14 @@
     position: relative;
 }
 
-.community-card p {
+.activity-card p {
     font-family: 'Merriweather', serif;
     font-size: 25px;
     position: absolute;
     bottom: 0px;
     z-index: 20;
 }
-.community-card img {
+.activity-card img {
     position: absolute;
     bottom: 0px;
     left: 50%;
@@ -112,15 +110,14 @@
     z-index: 5;
 }
 
-
 /* Một vài bức ảnh tiêu biểu */
-.community-highlight {
+.activity-highlight {
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin: 40px;
 }
-.community-highlight h3 {
+.activity-highlight h3 {
     font-family: 'Playfair Display', serif;
     font-size: 65px;
     color: #37848C;
@@ -157,14 +154,14 @@
 }
 
 /* Video */
-.community-video {
+.activity-video {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
 }
 /* Quote */
 
-.community-quote {
+.activity-quote {
     margin: 0 auto;
     font-family: 'Playfair Display', serif;
     display: flex;
