@@ -3,7 +3,7 @@ import "../styles/policy.css";
 
 function Policy() {
   return (
-    <div className="privacy-body">
+    <div className="policy-body">
       <h1>CHÍNH SÁCH BẢO MẬT</h1>
 
       <p>
