@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display&display=swap');
+
+.us-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Merriweather', serif;
+}
+
+.us-container h1 {
+  font-family: 'Playfair Display', serif;
+  color: #2a8a8a;
+  font-size: 50px;
+  margin-bottom: 30px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.us-intro {
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.us-intro p {
+  padding: 0 40px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.us-section {
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+  flex-wrap: wrap;
+}
+
+.us-text {
+  flex: 1;
+  padding: 0 40px;
+  color: #2f2f2f;
+}
+
+.us-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: white;
+  letter-spacing: 6px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.us-text p {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.us-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.us-image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.us-values h2 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.us-value-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.us-value-card {
+  width: 240px;
+  height: 300px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.us-value-card span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .us-value-list {
+    justify-content: center;
+  }
+
+  .us-value-card {
+    min-width: 45%;
+  }
+
+  .us-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .us-text h2 {
+    font-size: 2rem;
+  }
+
+  .us-value-card {
+    min-width: 100%;
+  }
+}

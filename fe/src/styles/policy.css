@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+.policy-body {
+    font-family: 'Merriweather', serif;
+    line-height: 1.6;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  .policy-body h1 {
+    font-size: 32px;
+    color: #2b2b2b;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .policy-body h2 {
+    font-size: 24px;
+    color: #2b2b2b;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+  
