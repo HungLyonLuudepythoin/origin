@@ -60,13 +60,12 @@ router.post('/users', async (req, res) => {
 });
 
 // Add a donation record
-router.post('/users/:id/donate', async (req, res) => {
+router.post('/users/donate', async (req, res) => {
   try {
-    const { magiaodich, sotien, ngaydonate } = req.body;
-    const id_user = req.params.id;
+    const { magiaodich, sotien, ngaydonate, id_user, description } = req.body;
     await db.query(
-      'INSERT INTO Donaters (magiaodich, sotien, ngaydonate, id_user) VALUES (?, ?, ?, ?)',
-      [magiaodich, sotien, ngaydonate, id_user]
+      'INSERT INTO Donaters (magiaodich, sotien, ngaydonate, id_user, mota) VALUES (?, ?, ?, ?, ?)',
+      [magiaodich, sotien, ngaydonate, id_user, description]
     );
     res.send('Donation recorded');
   } catch (err) {

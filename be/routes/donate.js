@@ -5,9 +5,9 @@ const payOS = require("../modules/payos");
 
 const DOMAIN = "http://localhost:3000"
 router.post("/create", async function (req, res) {
-  const { description, amountDonate } = req.body;
+  const { description, amountDonate, userId } = req.body;
   const body = {
-    orderCode: Number(String(new Date().getTime()).slice(-6)),
+    orderCode:  Number(`${userId}${Date.now().toString().slice(-6)}`),
     amount: Number(amountDonate), 
     description,
     cancelUrl: `${DOMAIN}/cancel.html`,
@@ -80,21 +80,14 @@ router.put("/:orderId", async function (req, res) {
     });
   }
 });
-
-// https://919f-183-80-65-109.ngrok-free.app/confirm-webhook
+//  https://cc22-2405-4802-80d5-7f90-c965-4640-6fa4-d579.ngrok-free.app/api/confirm-webhook
 router.post("/confirm-webhook", async (req, res) => {
-  const paymentInfo = res.body()
-  const {
-    orderCode,
-    amount,
-    description,
-    customerName, // depends on what PayOS sends
-    status,
-    transactionDateTime
-  } = paymentInfo;
+  const { orderCode, status, amount, description, transactionDateTime } = req.body.data;
   try {
     // await payOS.confirmWebhook(webhookUrl);
     console.log("web-hook",req.body)
+    const userId = Number(String(orderCode).slice(0, -6));
+    console.log(userId, orderCode, amount, transactionDateTime, description)
     res.json()
   } catch (error) {
     console.error(error);

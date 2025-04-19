@@ -15,11 +15,11 @@ app.get("/", (req, res) => {
 // Routes
 const userRoutes = require("./routes/db_api");
 const minioRoutes = require("./routes/minio_api");
-const paymentRouter = require("./routes/donate")
+const paymentRoutes = require("./routes/donate")
 // Prefix routes
-app.use("/db", userRoutes);       // MariaDB API routes
-app.use("/minio", minioRoutes);   // MinIO file API routes
-app.use("/api", paymentRouter);
+app.use("/db", userRoutes);    
+app.use("/minio", minioRoutes);   
+app.use("/api", paymentRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);
