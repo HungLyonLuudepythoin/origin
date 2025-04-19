@@ -13,12 +13,12 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 // Routes
-// const userRoutes = require("./routes/db_api");
-// const minioRoutes = require("./routes/minio_api");
+const userRoutes = require("./routes/db_api");
+const minioRoutes = require("./routes/minio_api");
 const paymentRouter = require("./routes/donate")
 // Prefix routes
-// app.use("/db", userRoutes);       // MariaDB API routes
-// app.use("/minio", minioRoutes);   // MinIO file API routes
+app.use("/db", userRoutes);       // MariaDB API routes
+app.use("/minio", minioRoutes);   // MinIO file API routes
 app.use("/api", paymentRouter);
 
 app.listen(PORT, () => {
