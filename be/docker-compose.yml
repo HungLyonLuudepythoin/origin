@@ -15,6 +15,9 @@ services:
     restart: always
     ports:
       - 3000:3000
+    volumes:
+      - .:/app # Mount current directory to /app in the container
+      - /app/node_modules # Avoids conflicts with the host node_modules
     depends_on:
       - db
       - minio  # Add Minio as a dependency for the backend service

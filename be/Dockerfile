@@ -1,18 +1,18 @@
 # Use official Node image
 FROM node:18
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy and install deps
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the app files
+# Copy app files
 COPY . .
 
-# Expose the port your app runs on (optional unless you want to access it externally)
-EXPOSE 3001
+# Expose port
+EXPOSE 3000
 
-# Start the app
+# Use nodemon from node_modules
 CMD ["npm", "run", "dev"]
