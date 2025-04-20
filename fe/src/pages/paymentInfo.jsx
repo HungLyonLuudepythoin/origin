@@ -1,12 +1,15 @@
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/paymentInfo.css';
 
 const PaymentInfo = () => {
-    const navigate = useNavigate();
-    const paymentMove = () => {
-        navigate('/paymentConfirm');
-      };
+  const navigate = useNavigate();
+
+  const paymentMove = (e) => {
+    e.preventDefault();
+    navigate('/paymentConfirm');
+  };
+
   return (
     <div className="pi-container">
       <div className="pi-left">
@@ -21,12 +24,12 @@ const PaymentInfo = () => {
         </div>
       </div>
       <div className="pi-right">
-        <div className="pi-form">
+        <form className="pi-form" onSubmit={paymentMove}>
           <h2 className="pi-form-title">Thông tin của bạn</h2>
 
           <div className="pi-group">
-            <label htmlFor="username">Nhập số tiền ủng hộ</label>
-            <input type="text" id="username" placeholder="Your username" className="pi-input" />
+            <label htmlFor="amount">Nhập số tiền ủng hộ</label>
+            <input type="number" id="amount" name="amount" placeholder="VD: 20000" className="pi-input" required />
           </div>
 
           <p className="pi-note">
@@ -34,14 +37,14 @@ const PaymentInfo = () => {
           </p>
 
           <div className="pi-amounts">
-            <button className="pi-amount">20.000vnd</button>
-            <button className="pi-amount">20.000vnd</button>
-            <button className="pi-amount">20.000vnd</button>
+            <button type="button" className="pi-amount">20.000vnd</button>
+            <button type="button" className="pi-amount">50.000vnd</button>
+            <button type="button" className="pi-amount">100.000vnd</button>
           </div>
 
           <div className="pi-group">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Your username" className="pi-input" />
+            <input type="email" id="email" name="email" placeholder="Email của bạn" className="pi-input" required />
           </div>
 
           <p className="pi-note">
@@ -49,24 +52,24 @@ const PaymentInfo = () => {
           </p>
 
           <div className="pi-checkbox">
-            <input type="checkbox" id="anonymous" />
+            <input type="checkbox" id="anonymous" name="anonymous" />
             <label htmlFor="anonymous">Ủng hộ ẩn danh</label>
           </div>
 
           <h2 className="pi-form-title">Thông tin ủng hộ</h2>
 
           <div className="pi-group">
-            <label htmlFor="donation-info">Nhập số tiền ủng hộ</label>
-            <input type="text" id="donation-info" placeholder="Your username" className="pi-input" />
+            <label htmlFor="donation-detail">Ghi chú hoặc lời nhắn</label>
+            <input type="text" id="donation-detail" name="donationDetail" placeholder="Lời nhắn" className="pi-input" />
           </div>
 
           <div className="pi-group">
             <label htmlFor="organization">Tổ chức</label>
-            <input type="text" id="organization" placeholder="Your username" className="pi-input" />
+            <input type="text" id="organization" name="organization" placeholder="Tên tổ chức" className="pi-input" />
           </div>
 
-          <button className="pi-submit" onClick={paymentMove}>Ủng hộ</button>
-        </div>
+          <button type="submit" className="pi-submit">Ủng hộ</button>
+        </form>
       </div>
     </div>
   );
