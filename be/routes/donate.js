@@ -17,7 +17,6 @@ router.post("/create", async function (req, res) {
   try {
     const paymentLinkRes = await payOS.createPaymentLink(body);
     console.log("✅ Payment Link Created:", paymentLinkRes);
-
     return res.redirect(paymentLinkRes.checkoutUrl)
   } catch (error) {
     console.log(error);
@@ -29,21 +28,20 @@ router.post("/create", async function (req, res) {
   }
 });
 
-router.get("/:orderId", async function (req, res) {
+router.get("/:userId", async function (req, res) {
   try {
-    const order = await payOS.getPaymentLinkInfomation(req.params.orderId);
-    if (!order) {
-      return res.json({
-        error: -1,
-        message: "failed",
-        data: null,
-      });
-    }
+    const userId = req.params.userId
+    const [rows] = await db.query(
+      'SELECT id_user, SUM(sotien) as total_donated FROM Donaters WHERE id_user = ? GROUP BY id_user',
+      [userId]
+    );
+
     return res.json({
       error: 0,
       message: "ok",
-      data: order,
+      data: rows.length > 0 ? rows[0] : { id_user: userId, total_donated: 0 }
     });
+
   } catch (error) {
     console.log(error);
     return res.json({
@@ -53,6 +51,8 @@ router.get("/:orderId", async function (req, res) {
     });
   }
 });
+
+
 
 router.put("/:orderId", async function (req, res) {
   try {
@@ -93,6 +93,7 @@ router.post("/confirm-webhook", async (req, res) => {
       'INSERT INTO Donaters (magiaodich, sotien, ngaydonate, id_user, mota) VALUES (?, ?, ?, ?, ?)',
       [orderCode, amount, transactionDateTime, userId, description]
     );
+    
   } catch (error) {
     console.error(error);
     return res.json({
