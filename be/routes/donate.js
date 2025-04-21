@@ -19,10 +19,86 @@ router.post("/create", async function (req, res) {
     console.log("✅ Payment Link Created:", paymentLinkRes);
     return res.redirect(paymentLinkRes.checkoutUrl)
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return res.json({
       error: -1,
       message: "fail",
+      data: null,
+    });
+  }
+});
+
+router.get("/find", async function (req, res) {
+  try {
+    const { userId, userName } = req.query; // Retrieve both userId and userName from query parameters
+    console.log("Received userId:", userId);
+    console.log("Received userName:", userName);
+
+    if (!userId && !userName) {
+      return res.json({
+        error: -1,
+        message: "Either userId or userName is required",
+        data: null,
+      });
+    }
+
+    let query = 'SELECT Don.id_user, ho_ten, magiaodich, sotien, ngaydonate, mota FROM Donaters Don JOIN Users ON Don.id_user = Users.id_user WHERE ';
+    let queryParams = [];
+
+    if (userId) {
+      query += 'Users.id_user = ?';
+      queryParams.push(userId);
+      console.log("okk userId")
+    }
+
+    if (userName) {
+      if (userId) query += ' AND '; // Use 'AND' if userId is already in the query
+      query += 'Users.ho_ten LIKE ?';
+      queryParams.push(`%${userName}%`);
+      console.log("okk userName")
+    }
+
+    const [rows] = await db.query(query, queryParams);
+
+    if (rows.length > 0) {
+      return res.json({
+        error: 0,
+        message: "ok",
+        data: rows,  // Return all donation records
+      });
+    } else {
+      return res.json({
+        error: 0,
+        message: "No donations found",
+        data: [],  // Return an empty array if no donations exist
+      });
+    }
+
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      error: -1,
+      message: "Failed to fetch data",  
+      data: null,
+    });
+  }
+});
+
+router.get("/topDonaters", async function (req, res) {
+  try {
+    const [rows] = await db.query(
+      'SELECT id_user, SUM(sotien) AS total_donated FROM Donaters GROUP BY id_user ORDER BY total_donated DESC LIMIT 10;'
+    )
+    return res.json({
+      error: 0,
+      message: "ok",
+      data: rows,  // Return all donation records
+    });
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      error: -1,
+      message: "Failed to fetch data",  
       data: null,
     });
   }
@@ -51,7 +127,6 @@ router.get("/:userId", async function (req, res) {
     });
   }
 });
-
 
 
 router.put("/:orderId", async function (req, res) {
@@ -83,7 +158,6 @@ router.put("/:orderId", async function (req, res) {
 //     https://efa9-2405-4802-80d5-7f90-240f-1454-b706-5fba.ngrok-free.app/api/donate/confirm-webhook
 router.post("/confirm-webhook", async (req, res) => {
   const { orderCode, amount, description, transactionDateTime } = req.body.data ;
-
   try {
     // await payOS.confirmWebhook(webhookUrl);
     console.log("web-hook",req.body)
