@@ -90,14 +90,15 @@
     width: 800px;
     height: 300px;
     position: relative;
+    gap: 10px;
 }
 
 .activity-card p {
     font-family: 'Merriweather', serif;
-    font-size: 25px;
+    font-size: 23px;
     position: absolute;
     bottom: 0px;
-    z-index: 20;
+    z-index: 999;
 }
 .activity-card img {
     position: absolute;
