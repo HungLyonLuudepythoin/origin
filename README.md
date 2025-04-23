@@ -65,7 +65,7 @@ sequenceDiagram
 
 ```
 
-## .env / Biến môi trường
+## `.env` / Biến môi trường
 ```env
 CLIENT_ID = 
 API_KEY = 
@@ -84,28 +84,37 @@ MINIO_ACCESS_KEY = minioadmin
 MINIO_SECRET_KEY = minioadmin
 MINIO_BUCKET_NAME = webdev2025
 ```
-
 ## ⚙️ Cách chạy dự án
-
-Donwload file về và giải nén file hoặc sử dụng ``` git clone ```.
+Donwload file về và giải nén file hoặc sử dụng ```git clone ```.
 ### Đối với FE
-Sử dụng câu lệnh ```cd fe ``` trong terminal và chạy câu lệnh ```npm run dev```
+Sử dụng câu lệnh ```cd fe``` trong terminal.
+Sau đó chạy câu lệnh ```npm install``` để tải các package cần thiết của dự án và cuối cùng câu lệnh ```npm run dev```
 ### Đối với BE
 Sử dụng câu lệnh ```cd fe ``` trong terminal 
 Sử dụng phần mềm Docker để có thể chạy các chương trình được đóng gói trong container bằng câu lệnh ```docker compose up --build```
 ## 📘 API Documentation
 ### 🖼️ MinIO's API Calls `api/minio/` 
 
-| **API Endpoint**                           | **HTTP Method** | **Description**                                               | **Request Parameters**                       | **Request Body**                             | **Response**                                                                 | **Example**                          |
-|--------------------------------------------|-----------------|---------------------------------------------------------------|---------------------------------------------|----------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------|
-| `/files`                                   | `GET`           | Lists files in a specific folder in MinIO.                     | `path` (query parameter: path to the folder) | None                                         | JSON array containing file names.                                           | `GET /files?path=images` -> `["image1.jpg", "image2.png"]` |
-| `/preview`                                 | `GET`           | Streams a preview of a file from MinIO.                        | `path` (query parameter: file path)         | None                                         | Streams the file content.                                                   | `GET /preview?path=images/image1.jpg` -> File streamed in response |
-| `/file`                                    | `GET`           | Downloads a file from MinIO.                                   | `path` (query parameter: file path)         | None                                         | Downloads the file as an attachment with `Content-Disposition`.             | `GET /file?path=images/image1.jpg` -> File downloaded |
-| `/files/:path`                             | `POST`          | Uploads a file to a specified folder in MinIO.                 | `path` (URL parameter: `images`, `videos`, `posts`) | `multipart/form-data` with `file` field | Success message if file is uploaded successfully.                          | `POST /files/images` -> File uploaded |
-
+| Method | Endpoint                | Description                                           | Request Params / Body                                                                                   | Response Example                                                        |
+|--------|-------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| GET    | `/files`                | Lấy danh sách file trong folder cụ thể               | **Query:** `path=images` (hoặc `videos`, `posts`)                                                        | `{ "files": ["images/cat.jpg", "images/logo.png"] }`                   |
+| GET    | `/preview`              | Xem trước file (stream inline)                       | **Query:** `path=images/cat.jpg`                                                                         | Trả về nội dung file trực tiếp                                         |
+| GET    | `/file`                 | Tải file từ MinIO                                     | **Query:** `path=images/cat.jpg`                                                                         | File tải về (Content-Disposition: attachment)                          |
+| POST   | `/files/:path`          | Upload file vào folder cụ thể (images/videos/posts)  | **Path:** `:path` = `images` / `videos` / `posts` <br> **Body:** `multipart/form-data` với field `file` | `200 OK` nếu thành công, hoặc `{ error: "..." }` nếu lỗi xảy ra       |
+---
+### 👤 User's API Calls `api/user/`
+| Method | Endpoint                | Description                                               | Params / Body                                                                                                 | Response Example                                                 |
+|--------|-------------------------|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| GET    | `/`                     | Lấy danh sách tất cả người dùng                           | –                                                                                                              | `[ { id_user: 1, ho_ten: "Nguyễn Văn A" }, ... ]`               |
+| GET    | `/:id`                  | Lấy tất cả thông tin của 1 người dùng (tổng hợp toàn bộ) | **Path:** `id_user`                                                                                           | `{ user, donations, mediaFiles, posts }`                        |
+| GET    | `/:id/donations`        | Lấy danh sách donation của người dùng                     | **Path:** `id_user`                                                                                           | `[ { magiaodich, sotien, mota, ... } ]`                         |
+| GET    | `/:id/media`            | Lấy danh sách file media mà người dùng đã upload          | **Path:** `id_user`                                                                                           | `[ { file_name, file_url, file_type, minio_key }, ... ]`        |
+| GET    | `/:id/posts`            | Lấy danh sách bài viết của người dùng                     | **Path:** `id_user`                                                                                           | `[ { post, created_at }, ... ]`                                 |
+| POST   | `/`                     | Tạo người dùng mới                                        | **Body:** `{ ho_ten: "Nguyễn Văn A" }`                                                                        | `{ id_user: 1, ho_ten: "Nguyễn Văn A" }`                        |
+| POST   | `/:id/media`            | Ghi metadata cho media file upload của người dùng         | **Body:** `{ file_name, file_type, file_url, minio_key }`                                                     | `"Media file metadata recorded"`                                |
+| POST   | `/:id/posts`            | Tạo bài viết mới cho người dùng                           | **Body:** `{ post: "Nội dung bài viết" }`                                                                     | `"Post created"`                                                |
 ---
 ### 🔗 Donate's API Calls: `/api/donate`
-
 | Method | Endpoint                    | Description                                           | Request Params / Body                                                                                              | Response                                                                 |
 |--------|-----------------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
 | POST   | `/create`                   | Tạo link thanh toán PayOS và chuyển hướng người dùng | **Body:** `{ description, amountDonate, userId }`                                                                  | `redirect` đến `checkoutUrl` nếu thành công, JSON lỗi nếu thất bại      |
@@ -113,8 +122,7 @@ Sử dụng phần mềm Docker để có thể chạy các chương trình đư
 | GET    | `/topDonaters`             | Lấy top 10 người donate nhiều nhất                   | –                                                                                                                   | `{ error, message, data: [ { id_user, total_donated } ] }`              |
 | GET    | `/:userId`                  | Lấy tổng tiền donate của một người dùng              | **Path param:** `userId`                                                                                           | `{ error, message, data: { id_user, total_donated } }`                  |
 | POST   | `/confirm-webhook`          | Nhận thông tin thanh toán từ PayOS                   | **Body:** `{ data: { orderCode, amount, description, transactionDateTime } }`                                      | `{ error, message }` (ghi vào DB nếu thành công)                        |
-
-
+---
 ## 🚀 Định hướng tương lai
 
 - Mở rộng nội dung lịch sử – giáo dục
