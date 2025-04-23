@@ -17,7 +17,7 @@ const userRoutes = require("./routes/db_api");
 const minioRoutes = require("./routes/minio_api");
 const paymentRoutes = require("./routes/donate")
 // Prefix routes
-app.use("/api/db", userRoutes);    
+app.use("/api/user", userRoutes);    
 app.use("/api/minio", minioRoutes);   
 app.use("/api/donate", paymentRoutes);
 

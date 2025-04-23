@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../modules/db');
 
 // Get all users
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM Users');
     res.json(rows);
@@ -14,7 +14,7 @@ router.get('/users', async (req, res) => {
 });
 
 // Get donations of a user
-router.get('/users/:id/donations', async (req, res) => {
+router.get('/:id/donations', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM Donaters WHERE id_user = ?', [req.params.id]);
     res.json(rows);
@@ -25,7 +25,7 @@ router.get('/users/:id/donations', async (req, res) => {
 });
 
 // Get media files uploaded by a user
-router.get('/users/:id/media', async (req, res) => {
+router.get('/:id/media', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM Media_files WHERE id_user = ?', [req.params.id]);
     res.json(rows);
@@ -36,7 +36,7 @@ router.get('/users/:id/media', async (req, res) => {
 });
 
 // Get posts created by a user
-router.get('/users/:id/posts', async (req, res) => {
+router.get('/:id/posts', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM Posts WHERE id_user = ?', [req.params.id]);
     res.json(rows);
@@ -47,7 +47,7 @@ router.get('/users/:id/posts', async (req, res) => {
 });
 
 // Create a new user
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { ho_ten } = req.body;
     if (!ho_ten) return res.status(400).send('Missing name');
@@ -58,24 +58,8 @@ router.post('/users', async (req, res) => {
     res.status(500).send('Failed to create user');
   }
 });
-
-// Add a donation record
-router.post('/users/donate', async (req, res) => {
-  try {
-    const { magiaodich, sotien, ngaydonate, id_user, description } = req.body;
-    await db.query(
-      'INSERT INTO Donaters (magiaodich, sotien, ngaydonate, id_user, mota) VALUES (?, ?, ?, ?, ?)',
-      [magiaodich, sotien, ngaydonate, id_user, description]
-    );
-    res.send('Donation recorded');
-  } catch (err) {
-    console.error('Error recording donation:', err);
-    res.status(500).send('Failed to record donation');
-  }
-});
-
 // Upload media file record (metadata only, MinIO handles actual file)
-router.post('/users/:id/media', async (req, res) => {
+router.post('/:id/media', async (req, res) => {
   try {
     const { file_name, file_type, file_url, minio_key } = req.body;
     const id_user = req.params.id;
@@ -91,7 +75,7 @@ router.post('/users/:id/media', async (req, res) => {
 });
 
 // Create a post
-router.post('/users/:id/posts', async (req, res) => {
+router.post('/:id/posts', async (req, res) => {
   try {
     const { post } = req.body;
     const id_user = req.params.id;
@@ -106,7 +90,7 @@ router.post('/users/:id/posts', async (req, res) => {
 // Get all data about the user
 
 // Get all info about a user
-router.get('/users/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const id_user = req.params.id;
 
   try {
