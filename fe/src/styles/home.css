@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Passions+Conflict&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .home {
+    background-color: #403838 ;
+  }
+
+  .schedule-container {
+    display: flex;
+    margin: 5rem 0;
+    align-items: center;
+    background-color: #e0e0e0;
+    flex-direction: column;
+    background-image: url(/images/schedule-flag.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    min-height: 200vh;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .picture-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-image: url(/images/hero1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .picture-container button {
+    margin: 80px;
+    border: none;
+    height: 80px;
+    width: 250px;
+    border-radius: 50px;
+    transition: transform 0.3s ease;
+    backface-visibility: hidden;       
+    transform: translateZ(0);
+    font-family: "Agbalumo", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: #37848C;
+    letter-spacing: 3px;
+  }
+
+  .picture-container button:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5),
+            0 0 16px rgba(255, 255, 255, 0.3);
+  }
+  
+  .schedule-container h1 {
+    font-family: "Passions Conflict", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 200px;
+    color: #A63E26;
+  }
+  
+  .content-layout {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    min-height: 800px;
+    background-color: #b94a30;
+    border-radius: 20px;
+    padding: 40px 20px;
+  }
+  
+  .left-column, .right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 30px;
+  }
+  
+  .center-column {
+    position: relative;
+    width: 100px;
+    margin: 0 10px;
+  }
+  
+  /* Add vertical line in the middle */
+  .center-column::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: white;
+    transform: translateX(-50%);
+  }
+  
+  .content-box {
+    background-color: #f8e7e2;
+    border-radius: 15px;
+    min-height: 150px;
+  }
+  
+  .section {
+    color: white;
+    padding: 10px;
+  }
+  
+  .section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+  }
+  
+  .section p {
+    margin-bottom: 5px;
+  }
+  
+  .conclusion {
+    color: white;
+    padding: 10px;
+  }
+  
+  .number-marker {
+    position: absolute;
+    background-color: #d9854a;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    z-index: 2;
+  }
+  
+  /* Horizontal connecting lines from number markers */
+  .number-marker::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 2px;
+    background-color: white;
+    z-index: 1;
+  }
+  
+  .n1 {
+    top: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .n2 {
+    top: 26%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .n3 {
+    top: 48%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .n4 {
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .n5 {
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Adjust horizontal lines to connect properly */
+  .n1::after, .n3::after, .n5::after {
+    left: 100%;
+  }
+  
+  .n2::after, .n4::after {
+    right: 100%;
+    left: auto;
+  }
