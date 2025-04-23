@@ -9,6 +9,8 @@ import AboutUs from './pages/aboutUs.jsx';
 import PaymentConfirmation from './pages/paymentConfirm.jsx';
 import ThankYou from './pages/thankYou.jsx';
 import PaymentInfo from './pages/paymentInfo.jsx';
+import Home from './pages/Home.jsx';
+import Community from './pages/community.jsx';
 
 import Topbar from './components/topbar.jsx';
 import Footer from './components/footer.jsx';
@@ -24,8 +26,10 @@ function App() {
     <main className="Main">
       <Topbar />
       <Routes>
+        <Route path="/" element={<Home />}></Route>
         <Route path="/donate" element={<Donate />} />
         <Route path="/activity" element={<Activity />} />
+        <Route path="/community" element={<Community />}></Route>
         <Route path="/terms" element={<Term />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/privacy" element={<Privacy />} />
