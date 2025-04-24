@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import "../styles/donate.css";
 import { Tab } from "bootstrap";
 function Donate() {
@@ -67,28 +69,35 @@ function Donate() {
     }
     else if (status==="search") {
       return (
-      <Table responsive hover className="tableTop">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Họ và Tên</th>
-            <th>Mã Giao Dịch</th>
-            <th>Số Tiền</th>
-            <th>Mô tả</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allSearch.map((search, index) => (
-            <tr key={index}>
-              <td>{search.id}</td>
-              <td style={{ fontWeight: '700', fontSize: '17px' }}>{search.name}</td>
-              <td>{search.transaction}</td>
-              <td>{search.amount}</td>
-              <td>{search.description}</td>
+      <>
+        <form id="searchForm" className="search-container">
+            <input type="text" name="name" placeholder="Nhập tên..." className="search-input1" />
+            <input type="text" name="id" placeholder="Nhập ID..." className="search-input2" />
+            <button type="submit" className="search-button"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+        </form>
+        <Table responsive hover className="tableTop">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Họ và Tên</th>
+              <th>Mã Giao Dịch</th>
+              <th>Số Tiền</th>
+              <th>Lời Chúc</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {allSearch.map((search, index) => (
+              <tr key={index}>
+                <td>{search.id}</td>
+                <td style={{ fontWeight: '700', fontSize: '17px' }}>{search.name}</td>
+                <td>{search.transaction}</td>
+                <td>{search.amount}</td>
+                <td>{search.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </>
       )
     }
   } 

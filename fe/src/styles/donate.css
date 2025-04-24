@@ -213,10 +213,43 @@ body {
     color: #009EFF;
 }
 
+/* Search */
+.search-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search-container input {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    flex: 1;
+}
+.search-input1 {
+    width: 250px;
+}
+.search-input2 {
+    max-width: 120px;
+}
+.search-button {
+    color: white;
+    cursor: pointer;
+    font-size: 25px;
+    height: 20px;
+}
+
+.search-button:hover {
+    color: #009EFF;
+} 
+
+
 /* Donation Fill */
 .donate-help {
     text-align: center;
-    margin-bottom: 90px;
+    
 }
 
 .donate-help h2 {
@@ -282,7 +315,7 @@ body {
     border-radius: 40px;
     margin-top: 30px;
     cursor: pointer;
-}  
+}
 /* Animation */
 @keyframes right-to {
     from { opacity: 0; transform: translateX(50px); }
