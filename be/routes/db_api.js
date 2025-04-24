@@ -46,13 +46,8 @@ router.get('/:id/posts', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-// Create a new user
-router.post('/', async (req, res) => {
-=======
 // Get random posts
 router.get('/random-posts', async (req, res) => {
->>>>>>> ddede0d (auth)
   try {
     // Get the number of posts to return from query parameter, default to 1 if not provided
     const numPosts = Math.min(parseInt(req.query.num) || 1, 20); // Limit to a maximum of 20 posts
@@ -108,8 +103,6 @@ router.get('/random-posts', async (req, res) => {
     res.status(500).send('Failed to fetch random posts');
   }
 });
-<<<<<<< HEAD
-=======
 
 // // Create a new user
 // router.post('/users', async (req, res) => {
@@ -139,7 +132,6 @@ router.post('/users/donate', async (req, res) => {
   }
 });
 
->>>>>>> ddede0d (auth)
 // Upload media file record (metadata only, MinIO handles actual file)
 router.post('/:id/media', async (req, res) => {
   try {
