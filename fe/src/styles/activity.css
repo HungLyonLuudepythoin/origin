@@ -181,7 +181,7 @@
 .hidden {
     opacity: 0;
     transform: translateY(-50px);
-    transition: all 2s ease;
+    transition: all 1.8s ease;
   }
 .show {
     opacity: 1;
