@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/activity.css";
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,13 +18,27 @@ function VanHoa(img, i) {
       className="activity-card"
       style={{ backgroundImage: `url(./images/${img})` }}
     >
-      <p>{quote[i]}</p>
+      <p className="hidden">{quote[i]}</p>
       <img src="./decoration/dec1.png" />
     </div>
   );
 }
 
 function Activity() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+  }, []);
   return (
     <div className="activity-container">
       {/* Title */}
@@ -57,7 +71,7 @@ function Activity() {
           {"VĂN HOÁ LÀ GÌ".split(" ").map((word, wordIndex) => (
             <div className="vertical-word" key={wordIndex}>
               {word.split("").map((char, charIndex) => (
-                <span key={charIndex}>{char}</span>
+                <span key={charIndex} className="hidden">{char}</span>
               ))}
             </div>
           ))}
