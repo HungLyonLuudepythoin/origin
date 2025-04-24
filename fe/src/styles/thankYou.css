@@ -33,7 +33,24 @@
     margin: 0 auto;
     margin-bottom: 40px;
 }
+.thank-button {
+    display: flex;
+    justify-content: center;
+}  
 
+.thank-button button {
+    font-family: 'Merriweather', serif;
+    background-color: #fa8072   ;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 30px;
+    font-weight: 600;
+    font-size: 16px;
+    height: 100%;
+    width: 200px;
+    cursor: pointer;
+}
 /* Responsive */
 @media (max-width: 768px) {
     .main-title {

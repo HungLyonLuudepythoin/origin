@@ -8,9 +8,7 @@ import Term from './pages/term.jsx';
 import Policy from './pages/policy.jsx';
 import Privacy from './pages/privacy.jsx';
 import AboutUs from './pages/aboutUs.jsx';
-import PaymentConfirmation from './pages/paymentConfirm.jsx';
 import ThankYou from './pages/thankYou.jsx';
-import PaymentInfo from './pages/paymentInfo.jsx';
 import Home from './pages/Home.jsx';
 import Community from './pages/community.jsx';
 
@@ -36,8 +34,6 @@ function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/paymentConfirm" element={<PaymentConfirmation />} />
-        <Route path="/paymentInfo" element={<PaymentInfo />} />
         <Route path="/thank" element={<ThankYou />} />
       </Routes>
       {showFooter && <Footer />}
