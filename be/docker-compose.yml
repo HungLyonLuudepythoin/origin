@@ -21,6 +21,7 @@ services:
     depends_on:
       - db
       - minio  # Add Minio as a dependency for the backend service
+      
   adminer:
     image: adminer
     restart: always

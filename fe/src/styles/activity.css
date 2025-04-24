@@ -4,7 +4,8 @@
 .activity-title {
     text-align: center;
     padding: 20px 0;
-    margin-bottom: -80px;
+    animation-name: top-to;
+    animation-duration: 1.5s;
 }
 
 .activity-title h1 {
@@ -72,7 +73,6 @@
     flex-direction: column;
     gap: 5px;
 }
-
 .activity-cards {
     display: flex;
     flex-direction: column;
@@ -97,6 +97,7 @@
     font-size: 25px;
     position: absolute;
     bottom: 0px;
+    margin-bottom: 20px;
     z-index: 20;
 }
 .activity-card img {
@@ -175,4 +176,14 @@
     border-right: 2px solid #822C18;
     border-left: 2px solid #822C18;
     height: 160px;
+}
+/* Animation */
+.hidden {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 1.8s ease;
+  }
+.show {
+    opacity: 1;
+    transform: translateY(0);
 }

@@ -46,18 +46,92 @@ router.get('/:id/posts', async (req, res) => {
   }
 });
 
-// Create a new user
-router.post('/', async (req, res) => {
+// Get random posts
+router.get('/random-posts', async (req, res) => {
   try {
-    const { ho_ten } = req.body;
-    if (!ho_ten) return res.status(400).send('Missing name');
-    const [result] = await db.query('INSERT INTO Users (`ho ten`) VALUES (?)', [ho_ten]);
-    res.status(201).json({ id_user: result.insertId, ho_ten });
+    // Get the number of posts to return from query parameter, default to 1 if not provided
+    const numPosts = Math.min(parseInt(req.query.num) || 1, 20); // Limit to a maximum of 20 posts
+
+    // Validate that numPosts is a positive integer
+    if (numPosts <= 0) {
+      return res.status(400).send('Number of posts must be a positive integer.');
+    }
+
+    let randomPosts = [];
+    let foundPosts = 0;
+    let seenPostIds = new Set(); // To keep track of already fetched posts
+
+    // Loop to find the required number of posts
+    while (foundPosts < numPosts) {
+      let randomUserId = null;
+      let randomPost = null;
+
+      // Get a random user
+      const [randomUser] = await db.query('SELECT id_user FROM Users ORDER BY RAND() LIMIT 1');
+      if (!randomUser.length) return res.status(404).send('No users found');
+
+      randomUserId = randomUser[0].id_user;
+
+      // Get a random post from that user
+      const [posts] = await db.query('SELECT * FROM Posts WHERE id_user = ? ORDER BY RAND() LIMIT 1', [randomUserId]);
+
+      if (posts.length > 0) {
+        randomPost = posts[0];
+
+        // Check if the post is already selected (using its post ID)
+        if (!seenPostIds.has(randomPost.id_post)) {
+          randomPosts.push({
+            userId: randomUserId,
+            post: randomPost
+          });
+          seenPostIds.add(randomPost.id_post); // Mark the post as seen
+          foundPosts++;
+        }
+      }
+
+      // If there are no posts found, we need to check if there are any other users left
+      const [allUsers] = await db.query('SELECT id_user FROM Users');
+      if (allUsers.length === 0) {
+        return res.status(404).send('No posts available from any user');
+      }
+    }
+
+    // Send the response with the random posts and user info
+    res.json(randomPosts);
   } catch (err) {
-    console.error('Error creating user:', err);
-    res.status(500).send('Failed to create user');
+    console.error('Error fetching random posts:', err);
+    res.status(500).send('Failed to fetch random posts');
   }
 });
+
+// // Create a new user
+// router.post('/users', async (req, res) => {
+//   try {
+//     const { ho_ten } = req.body;
+//     if (!ho_ten) return res.status(400).send('Missing name');
+//     const [result] = await db.query('INSERT INTO Users (`ho ten`) VALUES (?)', [ho_ten]);
+//     res.status(201).json({ id_user: result.insertId, ho_ten });
+//   } catch (err) {
+//     console.error('Error creating user:', err);
+//     res.status(500).send('Failed to create user');
+//   }
+// });
+
+// Add a donation record
+router.post('/users/donate', async (req, res) => {
+  try {
+    const { magiaodich, sotien, ngaydonate, id_user, description } = req.body;
+    await db.query(
+      'INSERT INTO Donaters (magiaodich, sotien, ngaydonate, id_user, mota) VALUES (?, ?, ?, ?, ?)',
+      [magiaodich, sotien, ngaydonate, id_user, description]
+    );
+    res.send('Donation recorded');
+  } catch (err) {
+    console.error('Error recording donation:', err);
+    res.status(500).send('Failed to record donation');
+  }
+});
+
 // Upload media file record (metadata only, MinIO handles actual file)
 router.post('/:id/media', async (req, res) => {
   try {
