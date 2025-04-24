@@ -59,15 +59,13 @@ const PaymentConfirmation = () => {
       </div>
 
       <div className="cf-right">
-        <div className="cf-right-content">
-          <img src="images/cờ việt nam.jpg" alt="Ảnh" className="cf-img" />
-          <p className="cf-desc">
-            Sự đóng góp quỹ bầu của bạn không chỉ tiếp sức cho
-            hoạt động ý nghĩa, mà còn lan tỏa tinh thần "uống nước
-            nhớ nguồn", góp phần gìn giữ nét đẹp văn hóa dân tộc.
-          </p>
-          <h1 className="cf-title">Chích Chòe</h1>
-        </div>
+        <img src="images/cờ việt nam.jpg" alt="Ảnh" className="cf-img" />
+        <p className="cf-desc">
+          Sự đóng góp quỹ bầu của bạn không chỉ tiếp sức cho
+          hoạt động ý nghĩa, mà còn lan tỏa tinh thần "uống nước
+          nhớ nguồn", góp phần gìn giữ nét đẹp văn hóa dân tộc.
+        </p>
+        <h1 className="cf-title">Chích Chòe</h1>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Donate from './pages/donate.jsx';
 import Activity from './pages/activity.jsx';
 import Term from './pages/term.jsx';

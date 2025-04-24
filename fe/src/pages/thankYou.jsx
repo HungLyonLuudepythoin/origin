@@ -11,7 +11,6 @@ const ThankYou = () => {
             tri ân sâu sắc gửi đến tổ tiên – những người đã dựng nên hình hài
             đất nước hôm nay.
         </p>
-        <img src="/images/cảm ơn.jpg" alt="Ảnh cảm ơn" className="thank-image"/>
       </div>
     </div>
   );

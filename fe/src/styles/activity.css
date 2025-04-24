@@ -4,7 +4,6 @@
 .activity-title {
     text-align: center;
     padding: 20px 0;
-    margin-bottom: -80px;
 }
 
 .activity-title h1 {
@@ -97,6 +96,7 @@
     font-size: 25px;
     position: absolute;
     bottom: 0px;
+    margin-bottom: 20px;
     z-index: 20;
 }
 .activity-card img {

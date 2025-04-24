@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 import "../styles/donate.css";
-
+import { Tab } from "bootstrap";
 function Donate() {
   const targetRef = useRef(null);
   const navigate = useNavigate();
@@ -26,6 +27,71 @@ function Donate() {
   const navigationClick = () => {
     navigate('/paymentInfo');
   };
+  const topDonate = [
+    { name: "Nguyễn Mạnh Tuấn Tú", amount: "500000" },
+    { name: "Trần Thị Linh", amount: "450000" },
+    { name: "Lê Văn Đạt", amount: "350000" },
+    { name: "Lương Thị Đoan Trang", amount: "300000" },
+    { name: "Hoàng Văn Phước Đại", amount: "280000" },
+    { name: "Phan Tường Vi", amount: "250000" },
+    { name: "Võ Minh Quân", amount: "200000" },
+    { name: "Hoàng Thùy Linh", amount: "150000" },
+    { name: "Trần Thị Minh Thư", amount: "120000" },
+    { name: "Đinh Văn Tùng", amount: "100000" },
+  ]
+  const allSearch = [
+    { id: "1", name: "Lương Thị Đoan Trang", transaction: "28561245", amount: "50000", description: "Hi vọng lưu giữ giá trị văn hóa" },
+    { id: "1", name: "Lương Thị Đoan Trang", transaction: "32617893", amount: "75000", description: "Góp phần bảo tồn di sản dân tộc" },
+    { id: "3", name: "Nguyễn Thị Đoan Trang", transaction: "41256738", amount: "100000", description: "Chung tay bảo vệ di tích lịch sử" },
+    { id: "3", name: "Nguyễn Thị Đoan Trang", transaction: "52937862", amount: "60000", description: "Để lại dấu ấn cho thế hệ sau" }
+  ]
+  const [status, setStatus] = useState('top');
+  function switchTable(value) {
+    setStatus(value);
+  }
+  function StatusTable({status}) {
+    if (status==="top") {
+      return (
+        <Table borderless responsive hover className="tableTop">
+          <tbody>
+            {topDonate.map((donate, index) => (
+              <tr key={index}>
+                <td>#{index + 1}</td>
+                <td style={{ color: '#0077CC', fontWeight: '600' }}>{donate.name}</td>
+                <td style={{ fontWeight: '700', fontSize: '17px' }}>{donate.amount} đ</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      );
+    }
+    else if (status==="search") {
+      return (
+      <Table responsive hover className="tableTop">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Họ và Tên</th>
+            <th>Mã Giao Dịch</th>
+            <th>Số Tiền</th>
+            <th>Mô tả</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allSearch.map((search, index) => (
+            <tr key={index}>
+              <td>{search.id}</td>
+              <td style={{ fontWeight: '700', fontSize: '17px' }}>{search.name}</td>
+              <td>{search.transaction}</td>
+              <td>{search.amount}</td>
+              <td>{search.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      )
+    }
+  } 
   return (
     <>
       <div className="introduction">
@@ -63,12 +129,35 @@ function Donate() {
         </div>
       </section>
 
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '100px'}}>
+        <div className="container-table">
+          <div className="donateTableButton">
+            <button onClick={() => switchTable('top')} className={`${status !== 'top' ? 'inactive' : 'active'}`}>Top Donate</button>
+            <button onClick={() => switchTable('search')} className={` ${status !== 'search' ? 'inactive' : 'active'}`}>Search</button>
+          </div>
+          <StatusTable status={status} />
+        </div>
+      </div>
+
       <section ref={targetRef} className="donate-help">
         <h2>Hãy cùng chung tay giúp đỡ</h2>
-        <div className="qr-code">
-          <img src="./images/qrcode.png" className="hidden" alt="QR Code" />
-        </div>
-        <div className="donate-button" style={{marginTop: '30px'}}><button onClick={navigationClick} style={{backgroundColor: '#fa8072', width: '160px'}}>Quyên góp</button></div>
+        <form className="donation">
+          <div className="donation-info">
+            <p>Thông Tin Quyên Góp Của Bạn</p>
+            <div className="donation-details">
+              <span>Võ Minh Quân</span>
+              <span>150.000đ</span>
+            </div>
+          </div>
+
+          <label>Số Tiền Quyên Góp</label>
+          <input placeholder="Nhập Số Tiền"/>
+
+          <label>Lời Chúc Tốt Đẹp</label>
+          <input placeholder="Type Message"/>
+
+          <button type="submit" className="confirm-button">Xác Nhận</button>
+        </form>
       </section>
     </>
   );

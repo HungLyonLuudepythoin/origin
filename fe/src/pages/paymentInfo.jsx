@@ -24,6 +24,7 @@ const PaymentInfo = () => {
         </div>
       </div>
       <div className="pi-right">
+        
         <form className="pi-form" onSubmit={paymentMove} action="/api/donate/create" method="POST">
           <h2 className="pi-form-title">Thông tin của bạn</h2>
 
