@@ -60,7 +60,7 @@ function Donate() {
               <tr key={index}>
                 <td>#{index + 1}</td>
                 <td style={{ color: '#0077CC', fontWeight: '600' }}>{donate.name}</td>
-                <td style={{ fontWeight: '700', fontSize: '17px' }}>{donate.amount} đ</td>
+                <td style={{ fontWeight: '700' }}>{donate.amount} đ</td>
               </tr>
             ))}
           </tbody>
@@ -89,7 +89,7 @@ function Donate() {
             {allSearch.map((search, index) => (
               <tr key={index}>
                 <td>{search.id}</td>
-                <td style={{ fontWeight: '700', fontSize: '17px' }}>{search.name}</td>
+                <td style={{ fontWeight: '700'}}>{search.name}</td>
                 <td>{search.transaction}</td>
                 <td>{search.amount}</td>
                 <td>{search.description}</td>
