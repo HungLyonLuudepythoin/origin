@@ -48,11 +48,11 @@
     border: none;
     border-radius: 60px;
     color: #37848C;
-    font-family: "Agbalumo", system-ui;
-    font-weight: 400;
+    font-family: 'Playfair Display', serif;
+    font-size: 33px;
+    font-weight: 500;    
     font-style: normal;
-    font-size: 2rem;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     transition: transform 0.3s ease;
     backface-visibility: hidden; 
   }
@@ -87,8 +87,8 @@
 
   .story-box h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 70px;
-    font-weight: 600;
+    font-size: 50px;
+    font-weight: 500;
     color:  #822c18;
     text-align: center;
     margin-top: 20px;
@@ -98,9 +98,9 @@
   .story-box p {
     font-family: "Merriweather", serif;
     font-optical-sizing: auto;
-    font-weight: 500;
+    font-weight: 400;
     font-style: normal;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #403838;
     text-align: left;
     margin: 1rem;
@@ -150,5 +150,189 @@
     border-left: 5px solid #822C18;
   }
 
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .post-popup {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 50rem;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .popup-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #37848C;
+    text-align: center;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+  }
+
+  .popup-content .name-input {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    border: none;
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+
+  .name-input:focus, textarea:focus {
+    outline: none;            
+    caret-color: #403838;    
+  }
+
+  input[type="file"] {
+    position: relative;
+  }
+  
+  input[type="file"]::file-selector-button {
+    width: 136px;
+    color: transparent;
+  }
+  
+
+  input[type="file"]::before {
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    left: 16px;
+    height: 20px;
+    width: 20px;
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2337848C'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+  }
+  
+  input[type="file"]::after {
+    position: absolute;
+    pointer-events: none;
+    top: 11px;
+    left: 40px;
+    color: #37848C;
+    content: "Upload File";
+  }
+  
+
+  input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+ 
+  input[type="file"]::file-selector-button:hover {
+    background-color: #f3f4f6;
+  }
+  
+  input[type="file"]::file-selector-button:active {
+    background-color: #e5e7eb;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .action-buttons .submit-button {
+    background-color: #37848C;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  } 
+
+  .action-buttons .close-button {
+    background-color: #A63E26;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .action-buttons .submit-button:hover, .action-buttons .close-button:hover {
+    transform: scale(1.1);
+  }
+
+  .confirm-popup {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: fadeIn 0.2s ease;
+    text-align: center;
+  }
+  
+  .confirm-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+  }
+  
+  .confirm-buttons .submit-button {
+    background-color: #37848C;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 6rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .confirm-buttons .close-button {
+    background-color: #A63E26;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
 
 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }

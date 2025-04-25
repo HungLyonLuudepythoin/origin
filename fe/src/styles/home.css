@@ -20,9 +20,8 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
-    height: 200vh;
     min-height: 200vh;
-    width: 100vw;
+    min-width: 98vw;
     font-family: "Inter", sans-serif;
     font-weight: 300;
     font-size: 23px;
@@ -36,7 +35,7 @@
     justify-content: center;
     align-items: flex-end;
     min-height: 100vh;
-    min-width: 100vw;
+    max-width: 100vw;
     background-image: url(/images/hero1.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -51,12 +50,12 @@
     transition: transform 0.3s ease;
     backface-visibility: hidden;       
     transform: translateZ(0);
-    font-family: "Agbalumo", system-ui;
-    font-weight: 400;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 500;    
     font-style: normal;
-    font-size: 30px;
     color: #37848C;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
   }
 
   .picture-container button:hover {
@@ -66,30 +65,38 @@
             0 0 16px rgba(255, 255, 255, 0.3);
   }
   
-  .schedule-container h1 {
+  .h1-container h1 {
     font-family: "Passions Conflict", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 280px;
+    font-size: 230px;
     color: #A63E26;
     text-shadow: 0 1em 20px rgba(0, 0, 0, 0.2);
     position: relative;
   }
 
+  @media (max-width: 480px) {
+    .schedule-container h1 {
+      font-size: 100px;
+    }
+  }
+
+  /*
   .schedule-container h1::after {
     content: 'Lịch trình tham quan';
     font-family: "Passions Conflict", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 280px;
+    font-size: 230px;
     position: absolute;
-    top: 13%; 
+    top: 10%; 
     left: 0;
     color: #A63E26;
     opacity: 0.2;
     filter: blur(4px);
     pointer-events: none;
   }
+    */
   
   .content-layout {
     position: relative;
@@ -132,7 +139,7 @@
   .img-box {
     border-radius: 40px;
     height: 15rem;
-    width: 35rem;
+    max-width: 28rem;
   }
 
   .left-column .img-box{
@@ -147,7 +154,8 @@
   #img-box-1 {
     background-image: url(/images/schedule-img-1.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% auto;
+    background-position: center;
   }
 
   #img-box-3 {
@@ -206,7 +214,7 @@
 
   .conclusion {
     color: white;
-    margin-top: 5rem;
+    margin-top: 7rem;
     font-weight: 400;
     font-size: 1.1rem;
   }
@@ -226,7 +234,7 @@
     z-index: 1;
   }
   
-  
+
   .number-marker::after {
     content: '';
     position: absolute;

@@ -9,13 +9,59 @@ import { FaRegHeart } from "react-icons/fa";
 import ImageSlider from "./imageSlider";
 
 function Community() {
+    const [openPostPopup, setOpenPostPopup] = React.useState(false);
+    const [showConfirm, setShowConfirm] = React.useState(false);
+    const showAlert = () => {
+        window.alert('Đã đăng ảnh!');
+    };
+
     return (
         <>
+            {/*Post popup for posting*/} 
+            {openPostPopup && (
+                <div className="overlay">
+                    <div className="post-popup">
+                        <div className="popup-content">
+                        <h2>Đăng tải trải nghiệm</h2>
+                        <input type="text" className="name-input" placeholder="Miêu tả hình ảnh..."/>
+                         <input type="file" name="post-img" id="post-img" className="img-input" required="true"/>
+                        <div className="action-buttons">
+                            <button className="close-button" onClick={() => {setShowConfirm(true);}}>Đóng</button>
+                            <button type="submit" className="submit-button" onClick={() => {
+                                setOpenPostPopup(false)
+                                showAlert();
+                            }}>Đăng tải</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showConfirm && (
+            <div className="overlay">
+                <div className="confirm-popup">
+                <p>Bạn có chắc chắn muốn đóng không?</p>
+                
+                <div className="confirm-buttons">
+                    <button className="close-button" onClick={() => setShowConfirm(false)}>Không</button>
+                    <button className="submit-button" onClick={() => {
+                    setOpenPostPopup(false);
+                    setShowConfirm(false);
+                    }}>Có</button>
+                </div>
+                </div>
+            </div>
+            )}
+
+            {/*Welcome view*/}     
             <div className="welcome">
                 <h1>Chào mừng đến với</h1>
                 <h1>Làng Văn Hoá</h1>
-                <button className="post-btn">Đăng tải trải nghiệm của bạn</button>
+                {/*Posting button*/} 
+                <button className="post-btn" onClick={() => setOpenPostPopup(true)}>Đăng tải trải nghiệm của bạn</button>
             </div>
+
+            {/*Story view*/} 
             <div className="story">
                 <div className="story-box">
                     <h3>Lễ Giỗ Tổ Hùng Vương</h3>
@@ -28,11 +74,15 @@ function Community() {
                     <img src="/images/story-img.png" alt="Hung King image" />
                 </div>
             </div>
+
+            {/*Users' posting slider*/} 
             <div className="posts">
                 <h1>Nét đẹp ngày Giỗ Tổ</h1>
                 <div className="img-slider"><ImageSlider /></div>
             </div>
             
+
+            {/*Poem view*/}
             <div className="poetry">
                 <p>Biển Việt ngàn xưa đà có chủ <br/>
                 Bờ Nam vạn đại hữu nhân ông <br/>
