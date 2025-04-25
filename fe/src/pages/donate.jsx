@@ -26,9 +26,6 @@ function Donate() {
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
   }, []);
 
-  const navigationClick = () => {
-    navigate('/paymentInfo');
-  };
   const topDonate = [
     { name: "Nguyễn Mạnh Tuấn Tú", amount: "500000" },
     { name: "Trần Thị Linh", amount: "450000" },
@@ -111,7 +108,7 @@ function Donate() {
           </p>
           <div className="donate-button"><button onClick={scrollClick}>Quyên góp</button></div>
         </div>
-        <img src="./images/parade.jpg" alt="Parade" />
+        <img src="./images/logo.png" alt="Parade" />
       </div>
 
       <div className="donate-stats">

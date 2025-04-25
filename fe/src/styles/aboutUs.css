@@ -68,6 +68,8 @@
   height: 300px;
   object-fit: cover;
   border-radius: 50%;
+  animation-name: right-to;
+  animation-duration: 1.8s;
 }
 
 .us-values h2 {
