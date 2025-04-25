@@ -180,13 +180,14 @@ body {
 }
 
 .tableTop {
-    width: 900px;
+    width: 1000px;
     margin: 0 auto;
 }
 .tableTop td, .tableTop th{
     font-family: 'Merriweather', serif;
     background-color: transparent;
     text-align: center;
+    font-size: 21px;
 }
   
 .donateTableButton {

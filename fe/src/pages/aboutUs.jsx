@@ -18,7 +18,7 @@ export default function AboutUs() {
           <p>Chúng tôi mong muốn truyền tải những giá trị văn hóa và lịch sử của lễ Giỗ Tổ Hùng Vương đến thế hệ trẻ, giúp các em hiểu và trân trọng cội nguồn dân tộc. Mục tiêu của chúng tôi là khơi dậy niềm tự hào và ý thức gìn giữ di sản văn hóa Việt Nam trong mỗi người yêu nước.</p>
         </div>
         <div className="us-image">
-          <img src="./images/purpose.jpeg" alt="Ảnh Vua Hùng" />
+          <img src="./images/logo.png" alt="Logo Team" />
         </div>
       </section>
 

@@ -7,24 +7,28 @@
   }
 
   .home {
-    background-color: #403838 ;
+    background-color: #D9BD8B ;
   }
 
   .schedule-container {
     display: flex;
-    margin: 5rem 0;
+    margin: 0 0;
     align-items: center;
-    background-color: #e0e0e0;
+    background-color: #D9BD8B;
     flex-direction: column;
     background-image: url(/images/schedule-flag.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    height: 200vh;
     min-height: 200vh;
+    width: 100vw;
     font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 23px;
     font-style: normal;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
   }
 
   .picture-container {
@@ -66,18 +70,34 @@
     font-family: "Passions Conflict", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 200px;
+    font-size: 280px;
     color: #A63E26;
+    text-shadow: 0 1em 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  .schedule-container h1::after {
+    content: 'Lịch trình tham quan';
+    font-family: "Passions Conflict", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 280px;
+    position: absolute;
+    top: 13%; 
+    left: 0;
+    color: #A63E26;
+    opacity: 0.2;
+    filter: blur(4px);
+    pointer-events: none;
   }
   
   .content-layout {
     position: relative;
     display: flex;
-    width: 100%;
-    max-width: 900px;
-    min-height: 800px;
-    background-color: #b94a30;
-    border-radius: 20px;
+    width: 80%;
+    height: 120%;
+    background: linear-gradient(to bottom, #A63E26, rgba(0, 0, 0, 0));
+    border-radius: 70px;
     padding: 40px 20px;
   }
   
@@ -86,6 +106,7 @@
     flex-direction: column;
     flex: 1;
     gap: 30px;
+    margin-top: 3rem;
   }
   
   .center-column {
@@ -94,104 +115,168 @@
     margin: 0 10px;
   }
   
-  /* Add vertical line in the middle */
+
   .center-column::after {
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
     left: 50%;
-    width: 2px;
+    width: 6px;
     background-color: white;
     transform: translateX(-50%);
+    transform: translateY(+2%);
+    max-height: 92%;
   }
   
-  .content-box {
-    background-color: #f8e7e2;
-    border-radius: 15px;
-    min-height: 150px;
+  .img-box {
+    border-radius: 40px;
+    height: 15rem;
+    width: 35rem;
+  }
+
+  .left-column .img-box{
+    margin-left: 6rem;
+  }
+
+  .right-column .img-box{
+    margin-right: 6rem;
+    margin-left: 2rem;
+  }
+
+  #img-box-1 {
+    background-image: url(/images/schedule-img-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  #img-box-3 {
+    background-image: url(/images/schedule-img-2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 3rem;
+  }
+
+  #img-box-2 {
+    background-image: url(/images/schedule-img-3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 4rem;
+  }
+
+  #img-box-4 {
+    background-image: url(/images/schedule-img-4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 4rem;
   }
   
   .section {
     color: white;
-    padding: 10px;
+    margin-top: 30px;
   }
   
   .section h2 {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+    font-weight: 500;
   }
   
   .section p {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
   }
   
+  #section-3 {
+    margin-right: 50px;
+  }
+
+  #section-1 {
+    margin-left: 5rem;
+    margin-top: 5rem;
+  }
+
+  #section-4 {
+    margin-top: 6rem;
+  }
+
+  #section-2 {
+    margin-top: 6rem;
+    margin-left: 5rem;
+  }
+
   .conclusion {
     color: white;
-    padding: 10px;
+    margin-top: 5rem;
+    font-weight: 400;
+    font-size: 1.1rem;
   }
   
   .number-marker {
     position: absolute;
-    background-color: #d9854a;
-    width: 30px;
-    height: 30px;
+    background-color: #D97E4A;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: white;
     font-weight: bold;
-    z-index: 2;
+    z-index: 1;
   }
   
-  /* Horizontal connecting lines from number markers */
+  
   .number-marker::after {
     content: '';
     position: absolute;
     top: 50%;
-    width: 100px;
-    height: 2px;
+    width: 300px;
+    height: 6px;
     background-color: white;
-    z-index: 1;
+    z-index: -1;
   }
   
   .n1 {
-    top: 7%;
-    left: 50%;
+    top: 1%;
+    left: 55%;
     transform: translateX(-50%);
   }
   
   .n2 {
-    top: 26%;
+    top: 22%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-45%);
   }
   
   .n3 {
-    top: 48%;
-    left: 50%;
+    top: 45%;
+    left: 53%;
     transform: translateX(-50%);
   }
   
   .n4 {
-    top: 70%;
-    left: 50%;
+    top: 68%;
+    left: 53%;
     transform: translateX(-50%);
   }
   
   .n5 {
-    top: 90%;
-    left: 50%;
+    top: 92%;
+    left: 53%;
     transform: translateX(-50%);
   }
   
   /* Adjust horizontal lines to connect properly */
   .n1::after, .n3::after, .n5::after {
-    left: 100%;
+    left: 98%;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
   }
   
   .n2::after, .n4::after {
     right: 100%;
     left: auto;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
   }

@@ -12,24 +12,23 @@ function Home() {
         <h1>Lịch trình tham quan</h1>
         <div className="content-layout">
           <div className="left-column">
-            <div className="content-box">
-              {/* Empty content box */}
+            <div className="img-box" id="img-box-1">
             </div>
             
-            <div className="section">
+            <div className="section" id="section-1">
               <h2>Tham quan Đền Hạ - Đền Trung</h2>
-              <p className="text">text</p>
-              <p className="para">para</p>
+              <p className="text">Thời gian: 8h30 - 9h30</p>
+              <p className="para">Nội dung: Tìm hiểu về lịch sử các đời Vua Hùng, lắng nghe thuyết minh về truyền thuyết Lạc Long Quân – Âu Cơ và ý nghĩa tín ngưỡng thờ cúng Hùng Vương.</p>
             </div>
             
-            <div className="content-box">
-              {/* Empty content box */}
+            <div className="img-box" id="img-box-2">
+              
             </div>
             
-            <div className="section">
-              <h2>header</h2>
-              <p className="text">text</p>
-              <p className="para">para</p>
+            <div className="section" id="section-2">
+              <h2>Tham gia hội trại – trò chơi dân gian</h2>
+              <p className="text">Thời gian: 14h00 – 16h00</p>
+              <p className="para">Nội dung: Giao lưu văn hóa, trải nghiệm các trò chơi dân gian (bịt mắt bắt dê, kéo co, đánh đu, ném còn...) và tham quan hội trại thanh thiếu niên. </p>
             </div>
           </div>
           
@@ -52,24 +51,22 @@ function Home() {
           </div>
           
           <div className="right-column">
-            <div className="section">
+            <div className="section" id="section-3">
               <h2>Dâng hương tại Đền Thượng</h2>
-              <p className="text">text</p>
-              <p className="paragraph">paragraph</p>
+              <p className="text">Thời gian: 7h30 – 8h30</p>
+              <p className="paragraph">Nội dung: Hành trình lên Đền Thượng – nơi thờ Quốc Tổ Lạc Long Quân và các Vua Hùng, thực hiện nghi thức dâng hương tưởng niệm.</p>
             </div>
             
-            <div className="content-box">
-              {/* Empty content box */}
+            <div className="img-box" id="img-box-3">
             </div>
             
-            <div className="section">
-              <h2>header</h2>
-              <p className="text">text</p>
-              <p className="para">para</p>
+            <div className="section" id="section-4">
+              <h2>Ghé thăm Bảo tàng Hùng Vương</h2>
+              <p className="text">Thời gian: 10h00 – 11h00</p>
+              <p className="para">Nội dung: Trưng bày nhiều hiện vật, hình ảnh quý giá về thời đại Hùng Vương, nền văn minh Văn Lang – Âu Lạc, và quá trình dựng nước.</p>
             </div>
             
-            <div className="content-box">
-              {/* Empty content box */}
+            <div className="img-box" id="img-box-4">
             </div>
             
             <div className="conclusion">

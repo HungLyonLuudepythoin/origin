@@ -26,9 +26,6 @@ function Donate() {
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
   }, []);
 
-  const navigationClick = () => {
-    navigate('/paymentInfo');
-  };
   const topDonate = [
     { name: "Nguyễn Mạnh Tuấn Tú", amount: "500000" },
     { name: "Trần Thị Linh", amount: "450000" },
@@ -60,7 +57,7 @@ function Donate() {
               <tr key={index}>
                 <td>#{index + 1}</td>
                 <td style={{ color: '#0077CC', fontWeight: '600' }}>{donate.name}</td>
-                <td style={{ fontWeight: '700', fontSize: '17px' }}>{donate.amount} đ</td>
+                <td style={{ fontWeight: '700' }}>{donate.amount} đ</td>
               </tr>
             ))}
           </tbody>
@@ -89,7 +86,7 @@ function Donate() {
             {allSearch.map((search, index) => (
               <tr key={index}>
                 <td>{search.id}</td>
-                <td style={{ fontWeight: '700', fontSize: '17px' }}>{search.name}</td>
+                <td style={{ fontWeight: '700'}}>{search.name}</td>
                 <td>{search.transaction}</td>
                 <td>{search.amount}</td>
                 <td>{search.description}</td>
@@ -137,7 +134,7 @@ function Donate() {
           </p>
           <div className="donate-button"><button onClick={scrollClick}>Quyên góp</button></div>
         </div>
-        <img src="./images/parade.jpg" alt="Parade" />
+        <img src="./images/logo.png" alt="Parade" />
       </div>
 
       <div className="donate-stats">
