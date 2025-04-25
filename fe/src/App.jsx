@@ -15,6 +15,7 @@ import Community from './pages/community.jsx';
 import Topbar from './components/topbar.jsx';
 import Footer from './components/footer.jsx';
 import './styles/App.css';
+import Login from './pages/login.jsx';
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/thank" element={<ThankYou />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       {showFooter && <Footer />}
     </main>

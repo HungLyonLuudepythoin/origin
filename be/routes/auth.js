@@ -2,9 +2,6 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../modules/db');
 const router = express.Router();
-
-const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 const verifyToken = require('../middlewares/verifyToken');
 
 // Signup 
@@ -19,7 +16,7 @@ router.post('/signup', async (req, res) => {
     try {
         // Check if user already exists by username or email
         const [existing] = await db.query(
-            'SELECT `id_user`, `ho ten`, `username`, `email`, `phone`, `created_at` FROM Users WHERE username = ? OR email = ?',
+            'SELECT `id_user`, `ho_ten`, `username`, `email`, `phone`, `created_at` FROM Users WHERE username = ? OR email = ?',
             [username, email]
         );
 
@@ -28,11 +25,11 @@ router.post('/signup', async (req, res) => {
         }
 
         // Hash the password
-        const hash = await bcrypt.hash(password, 10);
+        const hash = await bcrypt.hash(password.trim(), 10);
 
         // Insert new user
         const [result] = await db.query(
-            'INSERT INTO Users (`ho ten`, username, email, phone, password, created_at) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
+            'INSERT INTO Users (`ho_ten`, username, email, phone, password, created_at) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
             [ho_ten, username, email, phone, hash]
         );
 
@@ -47,7 +44,8 @@ router.post('/signup', async (req, res) => {
 
 // Login
 router.post('/login', async (req, res) => {
-    const { usernameOrEmail, password } = req.body;
+    const usernameOrEmail = req.body.usernameOrEmail;
+    const password = req.body.password;
 
     if (!usernameOrEmail || !password) {
         return res.status(400).json({ message: 'Missing username/email or password' });
@@ -57,25 +55,27 @@ router.post('/login', async (req, res) => {
         // Find user by username or email
         const [rows] = await db.query(
             'SELECT * FROM Users WHERE username = ? OR email = ?',
-            [usernameOrEmail, usernameOrEmail]
+            [usernameOrEmail.trim(), usernameOrEmail.trim()]
         );
 
         if (rows.length === 0) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials name or email' });
         }
 
         const user = rows[0];
 
         // Compare password with stored hash
-        const match = await bcrypt.compare(password, user.password);
+        console.log("Password:", password);
+        const match = await bcrypt.compare(password.trim(), user.password);
+        console.log("Password match result:", match);
         if (!match) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials password' });
         }
 
         // Prepare user data to return (exclude password)
         const userData = {
             id_user: user.id_user,
-            ho_ten: user["ho ten"],
+            ho_ten: user["ho_ten"],
             username: user.username,
             email: user.email,
             phone: user.phone,
@@ -121,7 +121,7 @@ router.get('/profile', verifyToken, async (req, res) => {
 
         // Query the database to get the user data
         const [user] = await db.query(
-            'SELECT id_user, `ho ten`, username, email, phone, created_at FROM Users WHERE id_user = ?',
+            'SELECT id_user, `ho_ten`, username, email, phone, created_at FROM Users WHERE id_user = ?',
             [userId]
         );
 

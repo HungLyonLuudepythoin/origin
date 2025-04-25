@@ -4,7 +4,15 @@ const app = express();
 const PORT = 3000;
 const path = require("path");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config();
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 // Middleware
 app.use(express.json());

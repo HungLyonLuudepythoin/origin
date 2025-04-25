@@ -109,7 +109,7 @@ router.get('/random-posts', async (req, res) => {
 //   try {
 //     const { ho_ten } = req.body;
 //     if (!ho_ten) return res.status(400).send('Missing name');
-//     const [result] = await db.query('INSERT INTO Users (`ho ten`) VALUES (?)', [ho_ten]);
+//     const [result] = await db.query('INSERT INTO Users (`ho_ten`) VALUES (?)', [ho_ten]);
 //     res.status(201).json({ id_user: result.insertId, ho_ten });
 //   } catch (err) {
 //     console.error('Error creating user:', err);

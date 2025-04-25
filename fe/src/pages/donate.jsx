@@ -4,8 +4,8 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import "../styles/donate.css";
-import { Tab } from "bootstrap";
 function Donate() {
+  const HOST = import.meta.env.VITE_DOMAIN
   const targetRef = useRef(null);
   const navigate = useNavigate();
   const scrollClick = () => {
@@ -101,6 +101,32 @@ function Donate() {
       )
     }
   } 
+  const handleDonate = async () => {
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      alert("Bạn cần đăng nhập trước khi quyên góp!");
+      // Optionally redirect
+      window.location.href = "/login";
+      return;
+    }
+  
+    // Gửi yêu cầu donate nếu đã đăng nhập
+    const response = await fetch(`${HOST}/api/donate`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        amount: amountValue,
+        message: messageValue,
+      }),
+    });
+  
+    const data = await response.json();
+    console.log(data);
+  };
   return (
     <>
       <div className="introduction">
