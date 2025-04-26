@@ -6,17 +6,18 @@
     padding: 20px 0;
     animation-name: top-to;
     animation-duration: 1.5s;
+    margin-top: 30px;
 }
 
 .activity-title h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 48px;
+    font-size: 55px;
     letter-spacing: 5px;
 }
 
 .activity-title h2 {
     font-family: 'Passions Conflict', cursive;
-    font-size: 180px;
+    font-size: 13rem;
     font-weight: 100;
     font-style: italic;
     margin-top: 5px;
