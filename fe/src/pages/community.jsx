@@ -58,7 +58,7 @@ function Community() {
                 <h1>Chào mừng đến với</h1>
                 <h1>Làng Văn Hoá</h1>
                 {/*Posting button*/} 
-                <button className="post-btn" onClick={() => setOpenPostPopup(true)}>Đăng tải trải nghiệm của bạn</button>
+                <button className="post-button" onClick={() => setOpenPostPopup(true)}>Đăng tải trải nghiệm của bạn</button>
             </div>
 
             {/*Story view*/} 

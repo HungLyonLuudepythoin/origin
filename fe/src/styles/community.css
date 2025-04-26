@@ -17,18 +17,19 @@
     padding: 20px;
     flex-direction: column;
     background-color: #D9BD8B;
-    
   }
 
   .welcome h1:first-of-type {
     font-family: 'Playfair Display', serif;
-    font-size: 60px;
+    font-size: 55px;
     font-weight: 400;
     color: #403838;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
     letter-spacing: 15px;
     margin: 2rem;
+    animation-name: top-to;
+    animation-duration: 1.5s;
   }
 
   .welcome h1:nth-of-type(2) {
@@ -37,12 +38,14 @@
     font-style: normal;
     text-align: center;
     color: #403838;
-    font-size: 14rem;
+    font-size: 13rem;
     transform: translateY(20px);
+    animation-name: top-to;
+    animation-duration: 1.5s;
   }
 
   .welcome button {
-    margin-top: 13rem;
+    margin-top: 6rem;
     min-height: 6rem;
     min-width: 40rem;
     border: none;

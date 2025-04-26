@@ -177,7 +177,7 @@ function Donate() {
           <div className="donation-info">
             <p>Thông Tin Quyên Góp Của Bạn</p>
             <div className="donation-details">
-              <span>Võ Minh Quân</span>
+              <span>Nguyễn Văn A</span>
               <span>150.000đ</span>
             </div>
           </div>
