@@ -3,21 +3,27 @@ const router = express.Router();
 const payOS = require("../modules/payos");
 const db = require('../modules/db');
 
-const DOMAIN = "http://localhost:3000"
+const HOST = process.env.DOMAIN
 router.post("/create", async function (req, res) {
   const { description, amountDonate, userId } = req.body;
   const body = {
     orderCode:  Number(`${userId}${Date.now().toString().slice(-6)}`),
     amount: Number(amountDonate), 
     description,
-    cancelUrl: `${DOMAIN}/cancel.html`,
-    returnUrl: `${DOMAIN}/success.html`
+    cancelUrl: `${HOST}/cancel.html`,
+    returnUrl: `${HOST}/success.html`
   };
 
   try {
     const paymentLinkRes = await payOS.createPaymentLink(body);
     console.log("✅ Payment Link Created:", paymentLinkRes);
-    return res.redirect(paymentLinkRes.checkoutUrl)
+    return res.json({
+      error: 0,
+      message: "success",
+      data: {
+        checkoutUrl: paymentLinkRes.checkoutUrl
+      }
+    });
   } catch (error) {
     console.log(error)
     return res.json({
@@ -87,7 +93,7 @@ router.get("/find", async function (req, res) {
 router.get("/topDonaters", async function (req, res) {
   try {
     const [rows] = await db.query(
-      'SELECT id_user, SUM(sotien) AS total_donated FROM Donaters GROUP BY id_user ORDER BY total_donated DESC LIMIT 10;'
+      'SELECT ho_ten, SUM(sotien) AS total_donated FROM Donaters JOIN Users ON Donaters.id_user = Users.id_user GROUP BY Donaters.id_user ORDER BY total_donated DESC LIMIT 10;'
     )
     return res.json({
       error: 0,

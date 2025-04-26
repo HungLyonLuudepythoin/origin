@@ -8,7 +8,7 @@ const BUCKET_NAME = process.env.MINIO_BUCKET_NAME; // Use the bucket name from .
 // Minio client setup using .env variables
 const minioClient = new Minio.Client({
   endPoint: process.env.MINIO_END_POINT,  // Use MINIO_END_POINT from .env
-  port: parseInt(process.env.MINIO_PORT, 10),  // Use MINIO_PORT from .env, ensure it's an integer
+  port: parseInt(process.env.MINIO_PORT, 10) || 9000,  // Use MINIO_PORT from .env, ensure it's an integer
   useSSL: process.env.MINIO_USE_SSL === "true",  // Use MINIO_USE_SSL from .env (boolean)
   accessKey: process.env.MINIO_ACCESS_KEY,  // Use MINIO_ACCESS_KEY from .env
   secretKey: process.env.MINIO_SECRET_KEY,  // Use MINIO_SECRET_KEY from .env

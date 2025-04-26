@@ -1,11 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import "../styles/donate.css";
 function Donate() {
   const HOST = import.meta.env.VITE_DOMAIN
+  const [description, setDescription] = useState('');
+  const [amountDonate, setAmountDonate] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userDonateList, setUserDonateList] = useState([]);
+  const [topDonaters, setTopDonaters] = useState([]);
+  const [searchName, setSearchName] = useState('');
+  const [searchId, setSearchId] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const targetRef = useRef(null);
   const navigate = useNavigate();
   const scrollClick = () => {
@@ -25,25 +33,58 @@ function Donate() {
     );
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
   }, []);
-
-  const topDonate = [
-    { name: "Nguyễn Mạnh Tuấn Tú", amount: "500000" },
-    { name: "Trần Thị Linh", amount: "450000" },
-    { name: "Lê Văn Đạt", amount: "350000" },
-    { name: "Lương Thị Đoan Trang", amount: "300000" },
-    { name: "Hoàng Văn Phước Đại", amount: "280000" },
-    { name: "Phan Tường Vi", amount: "250000" },
-    { name: "Võ Minh Quân", amount: "200000" },
-    { name: "Hoàng Thùy Linh", amount: "150000" },
-    { name: "Trần Thị Minh Thư", amount: "120000" },
-    { name: "Đinh Văn Tùng", amount: "100000" },
-  ]
-  const allSearch = [
-    { id: "1", name: "Lương Thị Đoan Trang", transaction: "28561245", amount: "50000", description: "Hi vọng lưu giữ giá trị văn hóa" },
-    { id: "1", name: "Lương Thị Đoan Trang", transaction: "32617893", amount: "75000", description: "Góp phần bảo tồn di sản dân tộc" },
-    { id: "3", name: "Nguyễn Thị Đoan Trang", transaction: "41256738", amount: "100000", description: "Chung tay bảo vệ di tích lịch sử" },
-    { id: "3", name: "Nguyễn Thị Đoan Trang", transaction: "52937862", amount: "60000", description: "Để lại dấu ấn cho thế hệ sau" }
-  ]
+  useEffect(() => {
+    const fetchUserDonate = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      try {
+        const resUser = await fetch(`${HOST}/auth/profile`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          }
+        });
+        const dataUser = await resUser.json();
+        const userId = dataUser.user.id_user;
+        const userName = dataUser.user.ho_ten;
+        setUserName(userName);
+  
+        const resUserDonate = await fetch(`${HOST}/api/donate/${userId}`, { 
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        const dataUserDonate = await resUserDonate.json();
+        setUserDonateList(dataUserDonate.data.total_donated);  // bạn cần coi backend trả về thế nào để set cho chuẩn
+      } catch (error) {
+        console.error("loi fetch donate", error);
+      }
+    }
+  
+    fetchUserDonate();
+  }, []);
+  useEffect(() => {
+    const fetchTopDonaters = async () => {
+      try {
+        const res = await fetch(`${HOST}/api/donate/topDonaters`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        if (data.error === 0) {
+          setTopDonaters(data.data);  // backend đã trả về list [{ id_user, total_donated }]
+        }
+      } catch (error) {
+        console.error("Failed to fetch top donaters:", error);
+      }
+    };
+  
+    fetchTopDonaters();
+  }, []);  
   const [status, setStatus] = useState('top');
   function switchTable(value) {
     setStatus(value);
@@ -53,11 +94,11 @@ function Donate() {
       return (
         <Table borderless responsive hover className="tableTop">
           <tbody>
-            {topDonate.map((donate, index) => (
+            {topDonaters.map((donate, index) => (
               <tr key={index}>
                 <td>#{index + 1}</td>
-                <td style={{ color: '#0077CC', fontWeight: '600' }}>{donate.name}</td>
-                <td style={{ fontWeight: '700' }}>{donate.amount} đ</td>
+                <td style={{ color: '#0077CC', fontWeight: '600' }}>{donate.ho_ten}</td>
+                <td style={{ fontWeight: '700' }}>{donate.total_donated} đ</td>
               </tr>
             ))}
           </tbody>
@@ -67,10 +108,26 @@ function Donate() {
     else if (status==="search") {
       return (
       <>
-        <form id="searchForm" className="search-container">
-            <input type="text" name="name" placeholder="Nhập tên..." className="search-input1" />
-            <input type="text" name="id" placeholder="Nhập ID..." className="search-input2" />
-            <button type="submit" className="search-button"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+        <form id="searchForm" className="search-container" onSubmit={handleSearch}>
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Nhập tên..." 
+            className="search-input1" 
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+          />
+          <input 
+            type="text" 
+            name="id" 
+            placeholder="Nhập ID..." 
+            className="search-input2" 
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)}
+          />
+          <button type="submit" className="search-button">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
         </form>
         <Table responsive hover className="tableTop">
           <thead>
@@ -79,17 +136,19 @@ function Donate() {
               <th>Họ và Tên</th>
               <th>Mã Giao Dịch</th>
               <th>Số Tiền</th>
+              <th>Ngày donate</th>
               <th>Lời Chúc</th>
             </tr>
           </thead>
           <tbody>
-            {allSearch.map((search, index) => (
+            {searchResults.map((search, index) => (
               <tr key={index}>
-                <td>{search.id}</td>
-                <td style={{ fontWeight: '700'}}>{search.name}</td>
-                <td>{search.transaction}</td>
-                <td>{search.amount}</td>
-                <td>{search.description}</td>
+                <td>{search.id_user}</td>
+                <td style={{ fontWeight: '700'}}>{search.ho_ten}</td>
+                <td>{search.magiaodich}</td>
+                <td>{search.sotien}</td>
+                <td>{search.ngaydonate}</td>
+                <td>{search.mota}</td>
               </tr>
             ))}
           </tbody>
@@ -97,32 +156,68 @@ function Donate() {
       </>
       )
     }
-  } 
-  const handleDonate = async () => {
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
     const token = localStorage.getItem("token");
-  
     if (!token) {
       alert("Bạn cần đăng nhập trước khi quyên góp!");
-      // Optionally redirect
-      window.location.href = "/login";
+      navigate("/login");
       return;
-    }
-  
-    // Gửi yêu cầu donate nếu đã đăng nhập
-    const response = await fetch(`${HOST}/api/donate`, {
+    } 
+    const resUser = await fetch(`${HOST}/auth/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+    const dataUser = await resUser.json()
+    const userId = dataUser.user.id_user
+    const resDonate = await fetch(`${HOST}/api/donate/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: amountValue,
-        message: messageValue,
+        description: description,
+        amountDonate: amountDonate,
+        userId: userId,
       }),
     });
+    const dataDonate = await resDonate.json();
+    if (dataDonate.error === 0 && dataDonate.data.checkoutUrl) {
+      window.location.href = dataDonate.data.checkoutUrl;
+    } else {
+      alert('Có lỗi xảy ra!');
+    }
+    } catch(err) {
+      console.log("loi donate",err)
+    }
+  }; 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const queryParams = new URLSearchParams();
+      if (searchId) queryParams.append("userId", searchId);
+      if (searchName) queryParams.append("userName", searchName);
   
-    const data = await response.json();
-    console.log(data);
+      const res = await fetch(`${HOST}/api/donate/find?${queryParams.toString()}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      const data = await res.json();
+      if (data.error === 0) {
+        setSearchResults(data.data);
+      } else {
+        alert("Không tìm thấy kết quả phù hợp.");
+      }
+    } catch (error) {
+      console.error("Lỗi tìm kiếm donate:", error);
+    }
   };
   return (
     <>
@@ -173,20 +268,33 @@ function Donate() {
 
       <section ref={targetRef} className="donate-help">
         <h2>Hãy cùng chung tay giúp đỡ</h2>
-        <form className="donation">
+        <form className="donation" onSubmit={handleSubmit} >
           <div className="donation-info">
             <p>Thông Tin Quyên Góp Của Bạn</p>
             <div className="donation-details">
-              <span>Võ Minh Quân</span>
-              <span>150.000đ</span>
+            <span>{userName}</span>
+            <span>{userDonateList}</span>
             </div>
           </div>
 
           <label>Số Tiền Quyên Góp</label>
-          <input placeholder="Nhập Số Tiền"/>
-
+          <input
+            type="number"
+            name="amountDonate"
+            placeholder="Amount (VND)"
+            required
+            value={amountDonate}
+            onChange={(e) => setAmountDonate(e.target.value)}
+          />
           <label>Lời Chúc Tốt Đẹp</label>
-          <input placeholder="Type Message"/>
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
 
           <button type="submit" className="confirm-button">Xác Nhận</button>
         </form>

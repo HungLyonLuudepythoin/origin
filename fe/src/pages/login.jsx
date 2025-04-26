@@ -29,6 +29,7 @@ const Login = () => {
   
       // Store token in localStorage
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.id)
       alert("Login successful!");
       // Optionally redirect
       window.location.href = "/";

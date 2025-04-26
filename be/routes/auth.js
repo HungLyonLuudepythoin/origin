@@ -46,7 +46,7 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     const usernameOrEmail = req.body.usernameOrEmail;
     const password = req.body.password;
-
+    
     if (!usernameOrEmail || !password) {
         return res.status(400).json({ message: 'Missing username/email or password' });
     }
