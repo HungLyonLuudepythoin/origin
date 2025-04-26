@@ -83,7 +83,7 @@ function Community() {
             
 
             {/*Poem view*/}
-            <div className="poetry">
+            <div className="community-poetry">
                 <p>Biển Việt ngàn xưa đà có chủ <br/>
                 Bờ Nam vạn đại hữu nhân ông <br/>
                 Giang sơn gấm vóc từ bao thuở <br/>

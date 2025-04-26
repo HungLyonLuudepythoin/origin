@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Passions+Conflict&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
 
   .home {
     background-color: #D9BD8B ;
