@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../modules/db');
-
+const multer = require('multer');
+const minioClient = require('../modules/minio_client');
+// Setup multer memory storage (because you upload to MinIO later)
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 // Get all users
 router.get('/', async (req, res) => {
   try {
@@ -65,19 +69,14 @@ router.get('/random-posts', async (req, res) => {
     while (foundPosts < numPosts) {
       let randomUserId = null;
       let randomPost = null;
-
       // Get a random user
       const [randomUser] = await db.query('SELECT id_user FROM Users ORDER BY RAND() LIMIT 1');
       if (!randomUser.length) return res.status(404).send('No users found');
-
       randomUserId = randomUser[0].id_user;
-
       // Get a random post from that user
       const [posts] = await db.query('SELECT * FROM Posts WHERE id_user = ? ORDER BY RAND() LIMIT 1', [randomUserId]);
-
       if (posts.length > 0) {
         randomPost = posts[0];
-
         // Check if the post is already selected (using its post ID)
         if (!seenPostIds.has(randomPost.id_post)) {
           randomPosts.push({
@@ -88,7 +87,6 @@ router.get('/random-posts', async (req, res) => {
           foundPosts++;
         }
       }
-
       // If there are no posts found, we need to check if there are any other users left
       const [allUsers] = await db.query('SELECT id_user FROM Users');
       if (allUsers.length === 0) {
@@ -133,18 +131,38 @@ router.post('/users/donate', async (req, res) => {
 });
 
 // Upload media file record (metadata only, MinIO handles actual file)
-router.post('/:id/media', async (req, res) => {
+router.post('/:id/media', upload.single('file'), async (req, res) => {
   try {
-    const { file_name, file_type, file_url, minio_key } = req.body;
+    const { description } = req.body;
     const id_user = req.params.id;
+    const file = req.file;
+
+    if (!file) {
+      return res.status(400).send('No file uploaded');
+    }
+    console.log(file);
+    if (!Buffer.isBuffer(file.buffer)) {
+      return res.status(500).send('File buffer is invalid');
+    }
+    // Upload file to MinIO
+    const minioObjectName = `${Date.now()}_${file.originalname}`; // make filename unique
+    await minioClient.putObject(process.env.MINIO_BUCKET_NAME, minioObjectName, file.buffer, {
+      'Content-Type': file.mimetype,
+    });
+
+    const fileUrl = `http://${process.env.MINIO_END_POINT || 'localhost'}:${process.env.MINIO_PORT || 9000}/${process.env.MINIO_BUCKET_NAME}/${minioObjectName}`;
+
+    // Save metadata into your database
     await db.query(
       'INSERT INTO Media_files (file_name, file_type, file_url, minio_key, id_user) VALUES (?, ?, ?, ?, ?)',
-      [file_name, file_type, file_url, minio_key, id_user]
+      [file.originalname, file.mimetype, fileUrl, minioObjectName, id_user]
     );
-    res.send('Media file metadata recorded');
+
+    res.send('Media file uploaded and metadata recorded');
+    
   } catch (err) {
-    console.error('Error recording media file:', err);
-    res.status(500).send('Failed to record media file');
+    console.error('Error uploading media file:', err);
+    res.status(500).send('Failed to upload media file');
   }
 });
 

@@ -1,20 +1,55 @@
 import React from "react";
 import "../styles/community.css";
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { GrView } from "react-icons/gr";
-import { FaRegHeart } from "react-icons/fa";
 import ImageSlider from "./imageSlider";
 
 function Community() {
     const [openPostPopup, setOpenPostPopup] = React.useState(false);
     const [showConfirm, setShowConfirm] = React.useState(false);
-    const showAlert = () => {
-        window.alert('Đã đăng ảnh!');
+    const [selectedFile, setSelectedFile] = React.useState(null);
+    const [description, setDescription] = React.useState("");
+
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
     };
 
+    const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+    };
+
+    const handleSubmit = async () => {
+        if (!selectedFile) {
+            alert("Please select a file!");
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('description', description);
+
+            // Assume user id is 1 for now, you can change later
+            const userId = 1;
+
+            const response = await fetch(`http://localhost:3000/api/minio/${userId}/media`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert('Đã đăng ảnh thành công!');
+                setOpenPostPopup(false);
+                setSelectedFile(null);
+                setDescription("");
+            } else {
+                alert('Đăng ảnh thất bại1.');
+            }
+        } catch (err) {
+            console.error('Error uploading file:', err);
+            alert('Đăng ảnh thất bại.');
+        }
+    };
     return (
         <>
             {/*Post popup for posting*/} 
@@ -23,14 +58,25 @@ function Community() {
                     <div className="post-popup">
                         <div className="popup-content">
                         <h2>Đăng tải trải nghiệm</h2>
-                        <input type="text" className="name-input" placeholder="Miêu tả hình ảnh..."/>
-                         <input type="file" name="post-img" id="post-img" className="img-input" required="true"/>
+                        <input
+                            type="text"
+                            className="name-input"
+                            placeholder="Miêu tả hình ảnh..."
+                            value={description}
+                            onChange={handleDescriptionChange}
+                        />
+                        <input
+                            type="file"
+                            name="post-img"
+                            id="post-img"
+                            className="img-input"
+                            onChange={handleFileChange}
+                        />
                         <div className="action-buttons">
                             <button className="close-button" onClick={() => {setShowConfirm(true);}}>Đóng</button>
-                            <button type="submit" className="submit-button" onClick={() => {
-                                setOpenPostPopup(false)
-                                showAlert();
-                            }}>Đăng tải</button>
+                            <button type="submit" className="submit-button" onClick={handleSubmit}>
+                                Đăng tải
+                            </button>
                         </div>
                         </div>
                     </div>
