@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import '../styles/login.css';
 const Login = () => {
   const [usernameOrEmail, setusernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,6 @@ const Login = () => {
         setError(data.message || "Login failed");
         return;
       }
-  
       // Store token in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.id)
@@ -41,25 +40,21 @@ const Login = () => {
   
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow bg-white">
-      <h2 className="text-2xl font-semibold mb-4">Login</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleLogin} className="space-y-4">
-        <div>
-          <label>usernameOrEmail:</label>
+    <div className="container">
+      <form onSubmit={handleLogin} className="login-section">
+        <div class="form-group">
+          <label>Tên hoặc Email:</label>
           <input
             type="usernameOrEmail"
-            className="w-full border p-2 rounded"
             value={usernameOrEmail}
             onChange={(e) => setusernameOrEmail(e.target.value)}
             required
           />
         </div>
-        <div>
+        <div class="form-group">
           <label>Password:</label>
           <input
             type="password"
-            className="w-full border p-2 rounded"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -67,11 +62,22 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="login-button"
         >
           Log In
         </button>
       </form>
+      <div class="info-section">
+        <div class="image-container">
+          <img src="./images/logo.png" alt="Vietnamese Flag" class="vuahung-image"/>
+        </div>
+        <div class="info-text">
+          <p>Xin chào bạn đã đến với "Ngày Giỗ Tổ", một dự án được tạo ra không chỉ để gởi gắm những thông tin, kiến thức thú vị về ngày quan trọng của dân tộc mà còn để giáo dục, tuyên truyền cho thế hệ trẻ về tầm quan trọng của Ngày Giỗ Tổ. </p>
+        </div>
+        <div class="team-name">
+          <h1>Chích Chòe</h1>
+        </div>
+      </div>
     </div>
   );
 };

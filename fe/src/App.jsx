@@ -37,6 +37,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/thank" element={<ThankYou />} />
         <Route path="/login" element={<Login />} />
+      
       </Routes>
       {showFooter && <Footer />}
     </main>
