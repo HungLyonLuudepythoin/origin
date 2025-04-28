@@ -9,6 +9,36 @@ const router = express.Router();
 const BUCKET_NAME = "webdev2025"; // Your MinIO bucket name
 
 // ------------------------
+// List all unique folders (user_ids) in MinIO
+// ------------------------
+router.get("/list", async (req, res) => {
+  try {
+    const stream = minioClient.listObjectsV2(BUCKET_NAME, "", true); // recursive = true
+    const foldersSet = new Set();
+
+    stream.on("data", (obj) => {
+      const pathParts = obj.name.split("/");
+      if (pathParts.length > 1 && pathParts[0]) {
+        foldersSet.add(pathParts[0]); // add only top-level folder (user_id)
+      }
+    });
+
+    stream.on("end", () => {
+      const folders = Array.from(foldersSet);
+      res.json({ paths: folders });
+    });
+
+    stream.on("error", (err) => {
+      console.error("Error listing folders:", err);
+      res.status(500).json({ error: "Failed to list folders" });
+    });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    res.status(500).json({ error: "Unexpected error occurred" });
+  }
+});
+
+// ------------------------
 // File listing
 // ------------------------
 router.get("/files", async (req, res) => {
@@ -131,5 +161,102 @@ router.post("/files/:path", async (req, res) => {
     res.status(500).send("File upload failed");
   }
 });
+
+// ------------------------
+// Get N random user_id folders, pick one random media per user, return URLs
+// ------------------------
+router.get("/random-media", async (req, res) => {
+  const num = parseInt(req.query.num) || 1; // Default to 1 if not provided
+  // console.log(`Requested number of random media: ${num}`);
+
+  try {
+    // Step 1: Get list of folders (user_ids) using the /list endpoint
+    const listStream = minioClient.listObjectsV2(BUCKET_NAME, "", false); // List top-level folders
+    const foldersSet = new Set();
+    // console.log("Listing folders...");
+
+    listStream.on("data", (obj) => {
+      // console.log("Received object:", obj); // Log entire object for debugging
+
+      if (obj && obj.prefix) { // Check if obj.prefix exists (indicating a folder)
+        const pathParts = obj.prefix.split("/");
+        if (pathParts.length > 1 && pathParts[0]) {
+          foldersSet.add(pathParts[0]); // Only the top-level folder (user_id)
+        }
+      } else {
+        console.log("Received an object without a prefix or invalid object");
+      }
+    });
+
+    listStream.on("end", async () => {
+      const folderList = Array.from(foldersSet);
+      // console.log("Found folders:", folderList);
+
+      if (folderList.length === 0) {
+        console.log("No user folders found");
+        return res.status(404).json({ error: "No user folders found" });
+      }
+
+      // Step 2: Pick `num` random folders
+      const randomFolders = [];
+      while (randomFolders.length < Math.min(num, folderList.length)) {
+        const randomFolder = folderList[Math.floor(Math.random() * folderList.length)];
+        if (!randomFolders.includes(randomFolder)) {
+          randomFolders.push(randomFolder);
+        }
+      }
+      // console.log("Selected random folders:", randomFolders);
+
+      // Step 3: Get a random file from each chosen folder
+      const results = [];
+      for (const folder of randomFolders) {
+        // console.log(`Listing files in folder: ${folder}`);
+        const userFilesStream = minioClient.listObjectsV2(BUCKET_NAME, `${folder}/`, true);
+        const userFiles = [];
+
+        await new Promise((resolve, reject) => {
+          userFilesStream.on("data", (obj) => {
+            if (obj && obj.name && !obj.name.endsWith("/")) { // Skip folder prefixes and undefined names
+              userFiles.push(obj.name);
+            }
+          });
+          userFilesStream.on("end", resolve);
+          userFilesStream.on("error", reject);
+        });
+
+        // console.log(`Found ${userFiles.length} files in folder ${folder}`);
+
+        // Step 4: If there are files, pick a random file and generate the preview URL
+        if (userFiles.length > 0) {
+          const randomFile = userFiles[Math.floor(Math.random() * userFiles.length)];
+          // console.log(`Picked random file: ${randomFile}`);
+
+          const previewUrl = `/api/minio/preview?path=${encodeURIComponent(randomFile)}`;
+          results.push({
+            user_id: folder,
+            file: randomFile,
+            preview_url: previewUrl
+          });
+        } else {
+          // console.log(`No media files found in folder: ${folder}`);
+        }
+      }
+
+      // Return the results
+      // console.log("Returning results:", results);
+      res.json({ results });
+    });
+
+    listStream.on("error", (err) => {
+      console.error("Error listing folders:", err);
+      res.status(500).json({ error: "Failed to list user folders" });
+    });
+
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    res.status(500).json({ error: "Unexpected error occurred" });
+  }
+});
+
 
 module.exports = router;

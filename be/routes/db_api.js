@@ -102,31 +102,32 @@ router.get('/random-posts', async (req, res) => {
   }
 });
 
-router.get('/random-media', async (req, res) => {
-  try {
-    const numFiles = Math.min(parseInt(req.query.num) || 1, 20);
+// router.get('/random-media', async (req, res) => {
+//   try {
+//     const numFiles = Math.min(parseInt(req.query.num) || 1, 20);
 
-    if (numFiles <= 0) {
-      return res.status(400).send('Number of media files must be positive.');
-    }
+//     if (numFiles <= 0) {
+//       return res.status(400).send('Number of media files must be positive.');
+//     }
 
-    const [randomMedia] = await db.query(`
-      SELECT id_media, file_name, file_type, file_url
-      FROM Media_files
-      ORDER BY RAND()
-      LIMIT ?
-    `, [numFiles]);
+//     const [randomMedia] = await db.query(`
+//       SELECT id_media, file_name, file_type, file_url
+//       FROM Media_files
+//       ORDER BY RAND()
+//       LIMIT ?
+//     `, [numFiles]);
 
-    if (randomMedia.length === 0) {
-      return res.status(404).send('No media files found.');
-    }
+//     if (randomMedia.length === 0) {
+//       return res.status(404).send('No media files found.');
+//     }
 
-    res.json(randomMedia);
-  } catch (err) {
-    console.error('Error fetching random media files:', err);
-    res.status(500).send('Failed to fetch random media files');
-  }
-});
+//     res.json(randomMedia);
+//   } catch (err) {
+//     console.error('Error fetching random media files:', err);
+//     res.status(500).send('Failed to fetch random media files');
+//   }
+// });
+
 // // Create a new user
 // router.post('/users', async (req, res) => {
 //   try {
