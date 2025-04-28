@@ -92,7 +92,7 @@ MINIO_BUCKET_NAME = webdev2025
 
 ## ⚙️ Cách chạy dự án
 
-Donwload file về và giải nén file hoặc sử dụng `git clone `.
+Donwload file về và giải nén file hoặc sử dụng `git clone`.
 
 ### Đối với FE
 
@@ -101,8 +101,11 @@ Sau đó chạy câu lệnh `npm install` để tải các package cần thiết
 
 ### Đối với BE
 
-Sử dụng câu lệnh `cd fe ` trong terminal
+Sử dụng câu lệnh `cd be` trong terminal
 Sử dụng phần mềm Docker để có thể chạy các chương trình được đóng gói trong container bằng câu lệnh `docker compose up --build`
+
+### Đối với việc tạo tài khoản bằng postman
+Sử dụng endpoint `http://localhost:3000/auth/signup` với `req.body` là `ho_ten, username, email, phone, password` để người dùng có thể đăng nhập vào trang và donate thực tế.
 
 ## 📘 API Documentation
 
