@@ -31,8 +31,7 @@ function Community() {
 
             // Assume user id is 1 for now, you can change later
             const userId = 1;
-
-            const response = await fetch(`http://localhost:3000/api/minio/${userId}/media`, {
+            const response = await fetch(`http://localhost:3000/api/user/${userId}/media`, {
                 method: 'POST',
                 body: formData,
             });
@@ -82,12 +81,10 @@ function Community() {
                     </div>
                 </div>
             )}
-
             {showConfirm && (
             <div className="overlay">
                 <div className="confirm-popup">
-                <p>Bạn có chắc chắn muốn đóng không?</p>
-                
+                <p>Bạn có chắc chắn muốn đóng không?</p>               
                 <div className="confirm-buttons">
                     <button className="close-button" onClick={() => setShowConfirm(false)}>Không</button>
                     <button className="submit-button" onClick={() => {
@@ -98,7 +95,6 @@ function Community() {
                 </div>
             </div>
             )}
-
             {/*Welcome view*/}     
             <div className="welcome">
                 <h1>Chào mừng đến với</h1>
@@ -126,8 +122,6 @@ function Community() {
                 <h1>Nét đẹp ngày Giỗ Tổ</h1>
                 <div className="img-slider"><ImageSlider /></div>
             </div>
-            
-
             {/*Poem view*/}
             <div className="community-poetry">
                 <p>Biển Việt ngàn xưa đà có chủ <br/>

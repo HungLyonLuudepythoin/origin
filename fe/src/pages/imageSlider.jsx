@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -10,27 +10,30 @@ import { FaRegHeart } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 
 function ImageSlider() {
-  const slides = [
-    {
-      id: 1,
-      imageUrl: './images/post-sample-1.png', 
-      likes: 130,
-      views: 230
-    },
-    {
-      id: 2,
-      imageUrl: './images/post-sample-2.png', 
-      likes: 370,
-      views: 2280
-    },
-    {
-      id: 3,
-      imageUrl: './images/post-sample-3.png', 
-      likes: 100,
-      views: 280
-    }
-  ];
+  const [slides, setSlides] = useState([]);
+  useEffect(() => {
+    async function fetchSlides() {
+      try {
+        const res = await fetch('http://localhost:3000/api/user/random-media?num=10');
+        const data = await res.json();
+        console.log('Fetched media:', data);
 
+        // Assuming your backend sends an array of media
+        setSlides(
+          data.map((item) => ({
+            id_media: item.id_media,
+            file_url: item.file_url,
+            likes: Math.floor(Math.random() * 500),  // TEMP FAKE likes
+            views: Math.floor(Math.random() * 3000)  // TEMP FAKE views
+          }))
+        );
+      } catch (error) {
+        console.error('Failed to fetch media', error);
+      }
+    }
+
+    fetchSlides();
+  }, []);
   return (
     <div className="slider-container">
       <Swiper
@@ -43,18 +46,18 @@ function ImageSlider() {
         slidesPerView={3}
         pagination={{ clickable: true }}
         onClick={(swiper) => {
-            swiper.slideTo(swiper.clickedIndex);
+          swiper.slideTo(swiper.clickedIndex);
         }}
       >
         {slides.map((slide) => (
-          <SwiperSlide key={slide.id}>
+          <SwiperSlide key={slide.id_media}>
             <div className="slide-card">
               <div className="image-container">
-                <img src={slide.imageUrl} alt={`Cultural event ${slide.id}`} />
+                <img src={slide.file_url} alt={`Media ${slide.id_media}`} />
               </div>
               <div className="slide-stats">
                 <div className="stat-item">
-                    <FaRegHeart />    
+                  <FaRegHeart />
                   <span>{slide.likes}</span>
                 </div>
                 <div className="stat-item">

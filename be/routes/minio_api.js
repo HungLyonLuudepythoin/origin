@@ -28,7 +28,6 @@ router.get("/files", async (req, res) => {
     res.status(500).json({ error: "Failed to list files" });
   });
 });
-
 // ------------------------
 // File preview (stream)
 // ------------------------
@@ -125,7 +124,6 @@ router.post("/files/:path", async (req, res) => {
         fs.createReadStream(file.filepath),
         metaData
       );
-
       res.send("File uploaded successfully");
     });
   } catch (err) {

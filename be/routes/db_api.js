@@ -49,18 +49,17 @@ router.get('/:id/posts', async (req, res) => {
     res.status(500).send('Failed to fetch posts');
   }
 });
-
 // Get random posts
 router.get('/random-posts', async (req, res) => {
   try {
+    console.log('Route /random-posts hit'); // Step 1
     // Get the number of posts to return from query parameter, default to 1 if not provided
     const numPosts = Math.min(parseInt(req.query.num) || 1, 20); // Limit to a maximum of 20 posts
-
+    console.log('Requested number of posts:', numPosts);
     // Validate that numPosts is a positive integer
     if (numPosts <= 0) {
       return res.status(400).send('Number of posts must be a positive integer.');
     }
-
     let randomPosts = [];
     let foundPosts = 0;
     let seenPostIds = new Set(); // To keep track of already fetched posts
@@ -72,9 +71,11 @@ router.get('/random-posts', async (req, res) => {
       // Get a random user
       const [randomUser] = await db.query('SELECT id_user FROM Users ORDER BY RAND() LIMIT 1');
       if (!randomUser.length) return res.status(404).send('No users found');
+      console.log('Random user selected:', randomUser);
       randomUserId = randomUser[0].id_user;
       // Get a random post from that user
       const [posts] = await db.query('SELECT * FROM Posts WHERE id_user = ? ORDER BY RAND() LIMIT 1', [randomUserId]);
+      console.log('Posts found for user:', posts);
       if (posts.length > 0) {
         randomPost = posts[0];
         // Check if the post is already selected (using its post ID)
@@ -93,7 +94,6 @@ router.get('/random-posts', async (req, res) => {
         return res.status(404).send('No posts available from any user');
       }
     }
-
     // Send the response with the random posts and user info
     res.json(randomPosts);
   } catch (err) {
@@ -102,6 +102,31 @@ router.get('/random-posts', async (req, res) => {
   }
 });
 
+router.get('/random-media', async (req, res) => {
+  try {
+    const numFiles = Math.min(parseInt(req.query.num) || 1, 20);
+
+    if (numFiles <= 0) {
+      return res.status(400).send('Number of media files must be positive.');
+    }
+
+    const [randomMedia] = await db.query(`
+      SELECT id_media, file_name, file_type, file_url
+      FROM Media_files
+      ORDER BY RAND()
+      LIMIT ?
+    `, [numFiles]);
+
+    if (randomMedia.length === 0) {
+      return res.status(404).send('No media files found.');
+    }
+
+    res.json(randomMedia);
+  } catch (err) {
+    console.error('Error fetching random media files:', err);
+    res.status(500).send('Failed to fetch random media files');
+  }
+});
 // // Create a new user
 // router.post('/users', async (req, res) => {
 //   try {
@@ -144,12 +169,17 @@ router.post('/:id/media', upload.single('file'), async (req, res) => {
     if (!Buffer.isBuffer(file.buffer)) {
       return res.status(500).send('File buffer is invalid');
     }
-    // Upload file to MinIO
-    const minioObjectName = `${Date.now()}_${file.originalname}`; // make filename unique
+
+    // Create a unique filename and store it in a folder based on the user's id
+    const userFolder = `user_${id_user}`;
+    const minioObjectName = `${userFolder}/${Date.now()}_${file.originalname}`;
+
+    // Upload file to MinIO under the user-specific folder
     await minioClient.putObject(process.env.MINIO_BUCKET_NAME, minioObjectName, file.buffer, {
       'Content-Type': file.mimetype,
     });
 
+    // Construct the file URL
     const fileUrl = `http://${process.env.MINIO_END_POINT || 'localhost'}:${process.env.MINIO_PORT || 9000}/${process.env.MINIO_BUCKET_NAME}/${minioObjectName}`;
 
     // Save metadata into your database
