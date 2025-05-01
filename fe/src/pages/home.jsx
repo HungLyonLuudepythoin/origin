@@ -1,8 +1,22 @@
-
-import React from 'react';
 import '../styles/home.css';
+import React, { useEffect } from 'react';
+
 
 function Home() {
+   useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.hidden-left, .hidden-right').forEach(el => observer.observe(el));
+    }, []);
   return (
     <>
       <div className="home">
@@ -13,8 +27,7 @@ function Home() {
           <div className="h1-container"><h1>Lịch trình tham quan</h1></div>
           <div className="content-layout">
             <div className="left-column">
-              <div className="img-box" id="img-box-1">
-              </div>
+              <div className="img-box hidden-left" id="img-box-1"></div>
       
               <div className="section" id="section-1">
                 <h2>Tham quan Đền Hạ - Đền Trung</h2>
@@ -22,9 +35,7 @@ function Home() {
                 <p className="para">Nội dung: Tìm hiểu về lịch sử các đời Vua Hùng, lắng nghe thuyết minh về truyền thuyết Lạc Long Quân – Âu Cơ và ý nghĩa tín ngưỡng thờ cúng Hùng Vương.</p>
               </div>
       
-              <div className="img-box" id="img-box-2">
-      
-              </div>
+              <div className="img-box hidden-left" id="img-box-2"></div>
       
               <div className="section" id="section-2">
                 <h2>Tham gia hội trại – trò chơi dân gian</h2>
@@ -58,7 +69,7 @@ function Home() {
                 <p className="paragraph">Nội dung: Hành trình lên Đền Thượng – nơi thờ Quốc Tổ Lạc Long Quân và các Vua Hùng, thực hiện nghi thức dâng hương tưởng niệm.</p>
               </div>
       
-              <div className="img-box" id="img-box-3">
+              <div className="img-box hidden-right" id="img-box-3">
               </div>
       
               <div className="section" id="section-4">
@@ -67,7 +78,7 @@ function Home() {
                 <p className="para">Nội dung: Trưng bày nhiều hiện vật, hình ảnh quý giá về thời đại Hùng Vương, nền văn minh Văn Lang – Âu Lạc, và quá trình dựng nước.</p>
               </div>
       
-              <div className="img-box" id="img-box-4">
+              <div className="img-box hidden-right" id="img-box-4">
               </div>
       
               <div className="conclusion">

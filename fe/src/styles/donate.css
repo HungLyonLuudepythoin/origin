@@ -318,6 +318,10 @@ body {
     cursor: pointer;
 }
 /* Animation */
+@keyframes left-to {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
 @keyframes right-to {
     from { opacity: 0; transform: translateX(50px); }
     to { opacity: 1; transform: translateX(0); }
