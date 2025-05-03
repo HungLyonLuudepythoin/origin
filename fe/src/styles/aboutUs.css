@@ -4,11 +4,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
-  font-family: 'Merriweather', serif;
+  font-family: 'Futura', sans-serif;
 }
 
 .us-container h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Futura', serif;
   color: #2a8a8a;
   font-size: 50px;
   margin-bottom: 30px;
@@ -42,8 +42,8 @@
 }
 
 .us-text h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 40px;
+  font-family: 'Merriweather', serif;
+  font-size: 50px;
   color: white;
   letter-spacing: 6px;
   text-align: center;
@@ -74,8 +74,8 @@
 
 .us-values h2 {
   text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-family: 'Futura', serif;
+  font-size: 3rem;
   color: #333;
   margin-bottom: 40px;
 }

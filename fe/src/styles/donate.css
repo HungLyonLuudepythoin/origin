@@ -37,7 +37,7 @@ body {
 }
 .donate-subtitle {
     font-size: 18px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Merriweather', sans-serif;
     color: #3A1700;
     font-weight: 100;
     width: 600px;
@@ -52,7 +52,7 @@ body {
 }  
 
 .donate-button button {
-    font-family: 'Rowdies', cursive;
+    font-family: 'Merriweather', sans-serif;
     background-color: #7E8AB8;
     color: white;
     border: none;
@@ -83,16 +83,17 @@ body {
 .stat h2 {
     font-size: 30px;
     color: #009EFF;
-    font-family: 'Rowdies', cursive;
+    font-family: 'Merriweather', sans-serif;
     text-align: center;
     margin: 10px;
     margin-top: 0px;
+    font-weight: 700;
     border-bottom: 3px solid #009EFF;
 }
 
 .stat p {
-    font-family: 'Rowdies', cursive;
     margin: 5px 0 0;
+    font-weight: 700;
 }
 
 /* About */
@@ -104,14 +105,14 @@ body {
 }
 
 .donate-about h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Merriweather', sans-serif;
     font-size: 60px;
     color: white;
     margin-bottom: 20px;
     letter-spacing: 5px;
 }
 .donate-about p {
-    font-family: 'Merriweather', serif;
+    font-family: 'Merriweather', sans-serif;
     font-weight: bold;
     font-size: 20px;
     max-width: 700px;
@@ -126,12 +127,11 @@ body {
 }
   
 .donate-temples h2 {
-    font-family: 'Rowdies', cursive;
+    font-family: 'Merriweather', sans-serif;
     font-size: 40px;
     margin-bottom: 30px;
     font-weight: bold;
     color: #3A1700;
-    font-family: 'Rowdies', cursive;
 }
   
 .temple-gallery {
@@ -158,7 +158,7 @@ body {
     transform: translateX(-50%);
     background-color: #fa8072;
     color: white;
-    font-family: 'Rowdies', cursive;
+    font-family: 'Merriweather', sans-serif;
     border: none;
     border-radius: 20px;
     padding: 8px 20px;
@@ -250,7 +250,6 @@ body {
 /* Donation Fill */
 .donate-help {
     text-align: center;
-    
 }
 
 .donate-help h2 {
@@ -261,14 +260,15 @@ body {
     font-family: 'Playfair Display', serif;
 } 
 .donation {
-    background-color: none;
+    background-color: white;
     padding: 40px 20px;
-    max-width: 480px;
+    max-width: 500px;
     margin: auto;
-    font-family: 'Merriweather', serif;
+    font-family: 'Futura', serif;
+    border-radius: 40px;
 }
 .donation-info {
-    background-color: white;
+    background-color: #D9BD8B;
     border-radius: 30px;
     padding: 20px;
     text-align: center;
@@ -298,6 +298,7 @@ body {
 }
   
 .donation input {
+    background-color: #D9BD8B;
     width: 100%;
     padding: 14px 20px;
     border: none;

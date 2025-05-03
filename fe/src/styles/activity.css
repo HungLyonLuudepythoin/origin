@@ -30,7 +30,7 @@
 }
   
 .activity-3d h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', sans-serif;
     font-size: 40px;
     color: #37848C;
     font-weight: 600;
@@ -38,7 +38,7 @@
     font-style: italic;
 }
 .activity-3d h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', sans-serif;
     font-size: 25px;
     color: #fff;
     font-weight: 600;
@@ -62,7 +62,7 @@
     color: white;
     display: inline-flex;
     flex-direction: column;
-    font-family: 'Agbalumo', cursive;
+    font-family: 'Playfair Display', sans-serif;
     font-size: 65px;
     font-weight: bold;
     align-items: center;
@@ -70,9 +70,13 @@
 }
 
 .vertical-word {
+    font-family: 'Merriweather', sans-serif;
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+.ok {
+    font-family: 'Merriweather', sans-serif;
 }
 .activity-cards {
     display: flex;
@@ -120,7 +124,7 @@
     margin: 40px;
 }
 .activity-highlight h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Merriweather', sans-serif;
     font-size: 65px;
     color: #37848C;
     font-weight: 600;
@@ -183,6 +187,7 @@
     opacity: 0;
     transform: translateY(-50px);
     transition: all 1.8s ease;
+    
   }
 .show {
     opacity: 1;

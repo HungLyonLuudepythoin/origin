@@ -17,7 +17,7 @@
     background-position: center;
     min-height: 200vh;
     min-width: 98vw;
-    font-family: "Inter", sans-serif;
+    font-family: "Futura", sans-serif;
     font-weight: 300;
     font-size: 23px;
     font-style: normal;
@@ -45,7 +45,7 @@
     transition: transform 0.3s ease;
     backface-visibility: hidden;       
     transform: translateZ(0);
-    font-family: 'Playfair Display', serif;
+    font-family: 'Futura', serif;
     font-size: 28px;
     font-weight: 500;    
     font-style: normal;
@@ -228,7 +228,6 @@
     font-weight: bold;
     z-index: 1;
   }
-  
 
   .number-marker::after {
     content: '';
