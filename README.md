@@ -161,8 +161,8 @@ Sử dụng endpoint `http://localhost:3000/auth/signup` với `req.body` là `h
 | Lưu Vĩnh Hưng (Leader)        | Fullstack                    | Tạo trang đăng nhập lưu trữ token trên browser, xây dựng hệ thống donate, FE gọi API donate endpoint, FE gọi API đăng bài, tạo database | 
 | Lương Triển Đạt               | Fullstack             | Xây dựng hệ thống bảo mật, hệ thống người dùng đăng bài, FE gọi API đăng, xem bài, config minio |
 | Võ Minh Quân                  | FE, Design | Xây dựng flow trang web, tạo trang donate, tạo trang hoạt động, tạo trang về chúng tôi |
-| Đoàn Nguyễn Minh Thư          | FE, Design UI/UX   | Thiết kế website, logo, tạo trang đăng nhập, footer, head bar |
-| Đặng Gia Nguyên          | FE              | Tạo trang chủ và trang cộng đồng |
+| Đoàn Nguyễn Minh Thư          | FE, Design UI/UX   | Thiết kế website, logo, thiết kế poster tạo trang đăng nhập, footer, head bar |
+| Đặng Gia Nguyên          | FE              | Tạo poster, tạo trang chủ và trang cộng đồng |
 
 ---
 
